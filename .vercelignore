@@ -1,7 +1,16 @@
+.git
 .next
 node_modules
+coverage
+
 .env
 .env.local
+.env.*.local
 *.log
+logs
 secrets
 secrets/
+*.pem
+*.key
+
+README.local.md

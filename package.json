@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev -H 127.0.0.1 -p 3100",
     "build": "next build",
-    "start": "next start -H 127.0.0.1 -p 3100"
+    "start": "next start -H 127.0.0.1 -p 3100",
+    "check:secrets": "bash scripts/check-secrets-before-commit.sh",
+    "deploy:safe": "bash scripts/deploy-vercel-safe.sh"
   },
   "dependencies": {
     "next": "latest",

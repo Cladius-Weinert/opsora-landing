@@ -1,4 +1,7 @@
 const MAX_BODY_BYTES = 12_000;
+const SAFE_JSON_HEADERS = {
+  "Cache-Control": "no-store"
+};
 
 const FIELD_LIMITS = {
   name: 120,
@@ -25,7 +28,7 @@ type LeadPayload = {
 function jsonError(error: string, status: number, fields?: string[]) {
   return Response.json(
     { ok: false, error, ...(fields ? { fields } : {}) },
-    { status }
+    { status, headers: SAFE_JSON_HEADERS }
   );
 }
 
@@ -98,6 +101,11 @@ export async function POST(req: Request) {
     return jsonError("server_not_configured", 500);
   }
 
+  const contentType = req.headers.get("content-type") || "";
+  if (!contentType.toLowerCase().includes("application/json")) {
+    return jsonError("unsupported_media_type", 415);
+  }
+
   const contentLength = Number(req.headers.get("content-length") || "0");
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
     return jsonError("payload_too_large", 413);
@@ -150,5 +158,8 @@ export async function POST(req: Request) {
     return jsonError("lead_submit_failed", 502);
   }
 
-  return Response.json(pickSafeUpstreamResponse(data), { status: 200 });
+  return Response.json(pickSafeUpstreamResponse(data), {
+    status: 200,
+    headers: SAFE_JSON_HEADERS
+  });
 }

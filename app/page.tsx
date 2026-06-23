@@ -17,7 +17,7 @@ const segments = [
     pain: "Slot layanan, harga, dan follow-up harus rapi di jam sibuk."
   },
   {
-    name: "Rental kendaraan",
+    name: "Rental mobil & motor",
     pain: "Calon customer membandingkan harga dan availability cepat."
   },
   {
@@ -31,6 +31,13 @@ const workflow = [
   "AI receptionist membuat balasan awal",
   "Lead tersimpan ke CRM lokal",
   "Admin review lalu lanjut WhatsApp"
+];
+
+const handoffRules = [
+  "Harga final, deposit, refund, dan komplain",
+  "Booking yang butuh cek availability real-time",
+  "Kondisi medis, legal, atau kasus sensitif",
+  "Lead high-value yang perlu sentuhan owner"
 ];
 
 const pricing = [
@@ -67,6 +74,10 @@ const faqs = [
   {
     q: "Cocok untuk bisnis di luar Bali?",
     a: "Bisa, tetapi fase awal difokuskan untuk SMB Denpasar/Bali agar setup dan template lebih tajam."
+  },
+  {
+    q: "Apakah butuh domain sendiri?",
+    a: "Untuk demo bisa memakai URL Opsora. Untuk outreach serius, domain dan tunnel permanen direkomendasikan agar alur backend lebih stabil."
   }
 ];
 
@@ -149,7 +160,7 @@ export default function Page() {
             </a>
           </div>
           <p className="trustLine">
-            Token backend tetap server-side. Follow-up outbound membutuhkan review manusia.
+            Data demo diproses lewat backend Opsora. Follow-up outbound tetap manual dan membutuhkan review manusia.
           </p>
         </div>
       </section>
@@ -194,6 +205,21 @@ export default function Page() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section handoffSection">
+        <div className="sectionHeader">
+          <p className="sectionKicker">Human handoff</p>
+          <h2>AI membantu admin bergerak lebih cepat, bukan mengambil keputusan bisnis.</h2>
+        </div>
+        <div className="handoffGrid">
+          {handoffRules.map((rule) => (
+            <div className="handoffItem" key={rule}>
+              <span aria-hidden="true">+</span>
+              <p>{rule}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -498,6 +524,46 @@ export default function Page() {
           line-height: 1.45;
         }
 
+        .handoffSection {
+          padding-bottom: 28px;
+        }
+
+        .handoffGrid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .handoffItem {
+          min-width: 0;
+          display: grid;
+          grid-template-columns: 28px minmax(0, 1fr);
+          gap: 10px;
+          align-items: start;
+          border: 1px solid #d8d2c4;
+          border-radius: 8px;
+          padding: 14px;
+          background: #fffdfa;
+        }
+
+        .handoffItem span {
+          display: inline-flex;
+          width: 28px;
+          height: 28px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          background: #dff3ec;
+          color: #17624d;
+          font-weight: 900;
+        }
+
+        .handoffItem p {
+          margin: 0;
+          color: #4a554f;
+          line-height: 1.45;
+        }
+
         .priceCard.featured {
           border-color: #2f8f72;
           box-shadow: 0 16px 34px rgba(47, 143, 114, 0.16);
@@ -623,6 +689,10 @@ export default function Page() {
           .workflowGrid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
+
+          .handoffGrid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
         }
 
         @media (max-width: 520px) {
@@ -645,6 +715,10 @@ export default function Page() {
           }
 
           .workflowGrid {
+            grid-template-columns: 1fr;
+          }
+
+          .handoffGrid {
             grid-template-columns: 1fr;
           }
 

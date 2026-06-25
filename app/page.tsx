@@ -1,90 +1,97 @@
 "use client";
 
-import Image from "next/image";
 import { type FormEvent, useState } from "react";
+import HeroSceneLoader from "./components/HeroSceneLoader";
 
 const segments = [
-  {
-    name: "Villa & hotel",
-    pain: "Inquiry booking sering masuk malam dan butuh jawaban cepat."
-  },
-  {
-    name: "Klinik & dentist",
-    pain: "Pasien baru perlu screening ringan sebelum admin follow-up."
-  },
-  {
-    name: "Salon & spa",
-    pain: "Slot layanan, harga, dan follow-up harus rapi di jam sibuk."
-  },
-  {
-    name: "Rental mobil & motor",
-    pain: "Calon customer membandingkan harga dan availability cepat."
-  },
-  {
-    name: "Travel & property",
-    pain: "Lead perlu dikualifikasi sebelum masuk chat sales."
-  }
+  { icon: "🏡", name: "Villa & Hotel", pain: "Inquiry booking malam hari sering terlewat.", tag: "Tier 1" },
+  { icon: "💆", name: "Salon & Spa", pain: "Customer tanya treatment saat staff sibuk.", tag: "Tier 1" },
+  { icon: "🏍️", name: "Rental Motor & Mobil", pain: "Traveler butuh motor hari ini, kompetitor lebih cepat.", tag: "Tier 1" },
+  { icon: "🦷", name: "Klinik & Dentist", pain: "Inquiry pasien berulang, admin kewalahan.", tag: "Tier 2" },
+  { icon: "🌴", name: "Travel & Tour", pain: "Paket custom butuh data terstruktur.", tag: "Tier 2" },
+  { icon: "💪", name: "Gym & Fitness", pain: "Trial class tidak di-follow-up.", tag: "Tier 2" },
+  { icon: "🍽️", name: "Restaurant & Cafe", pain: "Grup booking sering tidak direspons cepat.", tag: "Tier 2" },
+  { icon: "🏠", name: "Property Agent", pain: "Lead campur aduk, sulit kualifikasi.", tag: "Tier 3" },
+  { icon: "👕", name: "Laundry", pain: "Pickup hari ini tanpa konfirmasi cepat.", tag: "Tier 3" },
+  { icon: "📚", name: "Course & School", pain: "Calon siswa tanya jadwal dan harga berulang.", tag: "Tier 3" },
+  { icon: "🔧", name: "Repair Service", pain: "Detail masalah tidak lengkap saat urgent.", tag: "Tier 3" },
+  { icon: "🎉", name: "Event Vendor", pain: "Inquiry wedding terlambat dijawab.", tag: "Tier 3" }
 ];
 
 const workflow = [
   "Website atau form menerima inquiry",
-  "AI receptionist membuat balasan awal",
+  "AI receptionist membuat draft balasan",
   "Lead tersimpan ke CRM lokal",
   "Admin review lalu lanjut WhatsApp"
 ];
 
-const handoffRules = [
-  "Harga final, deposit, refund, dan komplain",
-  "Booking yang butuh cek availability real-time",
-  "Kondisi medis, legal, atau kasus sensitif",
-  "Lead high-value yang perlu sentuhan owner"
+const stats = [
+  { value: "0", label: "auto-send", detail: "WhatsApp tetap lewat approval admin" },
+  { value: "12", label: "segmen Bali", detail: "Villa, gym, spa, klinik, rental, dan lainnya" },
+  { value: "<3 mnt", label: "demo intake", detail: "Inquiry masuk, draft siap direview" }
 ];
 
 const pricing = [
   {
     plan: "Starter",
     price: "Rp 750rb",
-    note: "Untuk bisnis kecil yang ingin mulai menangkap lead dari website.",
-    items: ["1 lead form", "AI reply basic", "CRM dashboard sederhana"]
+    note: "Bisnis kecil mulai menangkap lead dari website.",
+    items: ["1 lead form", "AI reply basic", "CRM dashboard"],
+    featured: false
   },
   {
     plan: "Growth",
     price: "Rp 1,5jt",
-    note: "Untuk villa, klinik, salon, dan service business yang butuh follow-up rapi.",
+    note: "Villa, klinik, salon, gym — follow-up lebih rapi.",
     items: ["AI receptionist", "Lead capture + CRM", "Status pipeline", "Human handoff"],
     featured: true
   },
   {
     plan: "Custom",
     price: "Diskusi",
-    note: "Untuk integrasi booking, Google Sheets, Notion, atau workflow khusus.",
-    items: ["Automation custom", "Integrasi tools", "Dashboard khusus"]
+    note: "Integrasi booking, Sheets, Notion, workflow khusus.",
+    items: ["Automation custom", "Integrasi tools", "Dashboard khusus"],
+    featured: false
   }
+];
+
+const segmentOptions = [
+  { value: "", label: "Pilih jenis bisnis (opsional)" },
+  { value: "villa", label: "Villa / Hotel" },
+  { value: "salon", label: "Salon / Spa" },
+  { value: "rental", label: "Rental Motor / Mobil" },
+  { value: "clinic", label: "Klinik / Dentist" },
+  { value: "travel", label: "Travel / Tour" },
+  { value: "gym", label: "Gym / Fitness" },
+  { value: "restaurant", label: "Restaurant / Cafe" },
+  { value: "property", label: "Property Agent" },
+  { value: "laundry", label: "Laundry" },
+  { value: "course", label: "Course / School" },
+  { value: "repair", label: "Repair Service" },
+  { value: "event", label: "Event Vendor" },
+  { value: "other", label: "Lainnya" }
 ];
 
 const faqs = [
   {
     q: "Apakah ini menggantikan admin?",
-    a: "Tidak. Opsora menyiapkan balasan awal, ringkasan lead, dan follow-up draft agar admin bisa merespons lebih cepat."
+    a: "Tidak. Opsora menyiapkan draft balasan, ringkasan lead, dan saran follow-up agar admin merespons lebih cepat."
   },
   {
     q: "Apakah langsung auto-kirim WhatsApp?",
-    a: "Tidak untuk fase MVP. Outreach dan follow-up penting tetap lewat review manusia."
+    a: "Tidak. Semua pesan outbound tetap lewat review manusia — tidak ada auto-spam."
   },
   {
-    q: "Cocok untuk bisnis di luar Bali?",
-    a: "Bisa, tetapi fase awal difokuskan untuk SMB Denpasar/Bali agar setup dan template lebih tajam."
+    q: "Cocok untuk bisnis Bali mana saja?",
+    a: "Villa, gym, spa, klinik, rental, travel, restaurant, laundry, course, repair, event — 12 segmen dengan template siap pakai."
   },
   {
-    q: "Apakah butuh domain sendiri?",
-    a: "Untuk demo bisa memakai URL Opsora. Untuk outreach serius, domain dan tunnel permanen direkomendasikan agar alur backend lebih stabil."
+    q: "Berapa biaya mulai?",
+    a: "Audit gratis. Pilot 7 hari mulai Rp 300rb. Paket Starter Rp 750rb, Growth Rp 1,5jt setup."
   }
 ];
 
-type LeadResponse = {
-  ok?: boolean;
-  reply?: string;
-};
+type LeadResponse = { ok?: boolean; reply?: string };
 
 export default function Page() {
   const [status, setStatus] = useState("");
@@ -98,14 +105,19 @@ export default function Page() {
     setIsSubmitting(true);
 
     const form = new FormData(e.currentTarget);
+    const segment = String(form.get("segment") || "");
+    const needBase = String(form.get("need") || "");
+    const need = segment ? `[${segment}] ${needBase}` : needBase;
+
     const payload = {
       name: form.get("name"),
       business: form.get("business"),
       phone: form.get("phone"),
-      need: form.get("need"),
+      need,
       country: "Indonesia",
       language: "id",
-      source: "opsora-landing"
+      source: segment ? `opsora-landing-${segment}` : "opsora-landing",
+      website: form.get("website")
     };
 
     try {
@@ -114,7 +126,6 @@ export default function Page() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
       const data = (await res.json().catch(() => ({}))) as LeadResponse;
 
       if (!res.ok || !data.ok) {
@@ -122,7 +133,7 @@ export default function Page() {
         return;
       }
 
-      setStatus("Lead terkirim. Kami akan follow-up untuk demo singkat.");
+      setStatus("Lead terkirim! Kami akan follow-up untuk demo singkat.");
       setReply(data.reply || "");
       e.currentTarget.reset();
     } catch {
@@ -134,73 +145,76 @@ export default function Page() {
 
   return (
     <main className="page">
+      <nav className="nav">
+        <div className="navBrand">
+          <span>Opsora</span>
+        </div>
+        <div className="navLinks">
+          <a href="#segments">Segmen</a>
+          <a href="#workflow">Cara Kerja</a>
+          <a href="#pricing">Paket</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a href="#demo" className="navCta">
+          Minta Demo
+        </a>
+      </nav>
+
       <section className="hero">
-        <Image
-          src="/opsora-dashboard-preview.png"
-          alt="Opsora AI receptionist dashboard preview"
-          fill
-          priority
-          sizes="100vw"
-          className="heroImage"
-        />
-        <div className="heroOverlay" />
+        <HeroSceneLoader />
         <div className="heroContent">
-          <p className="eyebrow">Denpasar/Bali SMB automation MVP</p>
-          <h1>Opsora AI Receptionist</h1>
+          <p className="eyebrow">Bali SMB · AI Receptionist</p>
+          <h1>
+            <span className="gradient">Balas Lead Lebih Cepat.</span>
+            <br />
+            Jangan Kehilangan Customer.
+          </h1>
           <p className="heroCopy">
-            Tangkap lead dari website, buat balasan awal, simpan ke CRM, lalu
-            bantu admin follow-up tanpa kehilangan calon customer karena slow response.
+            Opsora menangkap inquiry dari website, membuat draft balasan AI, menyimpan lead ke CRM,
+            dan menyiapkan follow-up — khusus bisnis Bali: villa, gym, spa, klinik, rental, dan lainnya.
           </p>
           <div className="heroActions">
-            <a href="#demo" className="primaryAction">
-              Minta Demo Singkat
+            <a href="#demo" className="btnPrimary">
+              Minta Demo Gratis →
             </a>
-            <a href="#pricing" className="secondaryAction">
-              Lihat Paket
+            <a href="#segments" className="btnSecondary">
+              Lihat 12 Segmen Bali
             </a>
           </div>
           <p className="trustLine">
-            Data demo diproses lewat backend Opsora. Follow-up outbound tetap manual dan membutuhkan review manusia.
+            Tidak ada auto-send WhatsApp. Admin tetap review setiap pesan sebelum dikirim.
           </p>
         </div>
+        <div className="heroVisual" />
       </section>
 
-      <section className="section intro">
-        <div>
-          <p className="sectionKicker">Untuk bisnis lokal yang hidup dari respons cepat</p>
-          <h2>Lead tidak boleh hilang hanya karena admin sedang sibuk.</h2>
-        </div>
-        <p>
-          Opsora disiapkan sebagai fondasi operasi: lead capture, AI reply draft,
-          CRM sederhana, status pipeline, dan handoff ke manusia saat perlu.
+      <section className="section" id="segments">
+        <p className="sectionKicker">12 Segmen Bali</p>
+        <h2>Dibuat untuk bisnis lokal yang hidup dari respons cepat.</h2>
+        <p className="sectionDesc">
+          Dari villa di Seminyak sampai gym di Canggu — setiap segmen punya template FAQ, field intake,
+          dan alur handoff yang aman.
         </p>
-      </section>
-
-      <section className="section">
-        <div className="sectionHeader">
-          <p className="sectionKicker">Segmen awal</p>
-          <h2>Template dibuat untuk use case SMB Indonesia.</h2>
-        </div>
         <div className="segmentGrid">
-          {segments.map((segment) => (
-            <article className="card segmentCard" key={segment.name}>
-              <h3>{segment.name}</h3>
-              <p>{segment.pain}</p>
+          {segments.map((s) => (
+            <article className="segmentCard" key={s.name}>
+              <div className="segmentIcon">{s.icon}</div>
+              <h3>{s.name}</h3>
+              <p>{s.pain}</p>
+              <span className="segmentTag">{s.tag}</span>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="band">
-        <div className="section workflowSection">
-          <div className="sectionHeader">
-            <p className="sectionKicker">Cara kerja</p>
-            <h2>Dari inquiry sampai follow-up, alurnya tetap bisa diawasi.</h2>
-          </div>
+      <section className="band" id="workflow">
+        <div className="section">
+          <p className="sectionKicker">Cara kerja</p>
+          <h2>Dari inquiry sampai follow-up — tetap bisa diawasi.</h2>
           <div className="workflowGrid">
-            {workflow.map((step, index) => (
-              <div className="workflowItem" key={step}>
-                <span>{index + 1}</span>
+            {workflow.map((step, i) => (
+              <div className="workflowStep" key={step}>
+                <span className="stepNum">{i + 1}</span>
                 <p>{step}</p>
               </div>
             ))}
@@ -208,35 +222,32 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="section handoffSection">
-        <div className="sectionHeader">
-          <p className="sectionKicker">Human handoff</p>
-          <h2>AI membantu admin bergerak lebih cepat, bukan mengambil keputusan bisnis.</h2>
-        </div>
-        <div className="handoffGrid">
-          {handoffRules.map((rule) => (
-            <div className="handoffItem" key={rule}>
-              <span aria-hidden="true">+</span>
-              <p>{rule}</p>
+      <section className="section">
+        <p className="sectionKicker">Kenapa Opsora</p>
+        <h2>Automation yang aman untuk bisnis Bali.</h2>
+        <div className="statsGrid">
+          {stats.map((s) => (
+            <div className="statCard" key={s.label}>
+              <div className="statValue">{s.value}</div>
+              <div className="statLabel">{s.label}</div>
+              <div className="statDetail">{s.detail}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="section" id="pricing">
-        <div className="sectionHeader">
-          <p className="sectionKicker">Paket awal</p>
-          <h2>Mulai kecil, lalu tambah integrasi setelah workflow terbukti.</h2>
-        </div>
+        <p className="sectionKicker">Paket</p>
+        <h2>Mulai kecil, scale setelah terbukti.</h2>
         <div className="pricingGrid">
-          {pricing.map((item) => (
-            <article className={`card priceCard ${item.featured ? "featured" : ""}`} key={item.plan}>
-              <h3>{item.plan}</h3>
-              <p className="price">{item.price}</p>
-              <p>{item.note}</p>
+          {pricing.map((p) => (
+            <article className={`priceCard ${p.featured ? "featured" : ""}`} key={p.plan}>
+              <h3>{p.plan}</h3>
+              <div className="priceAmount">{p.price}</div>
+              <p className="sectionDesc">{p.note}</p>
               <ul>
-                {item.items.map((feature) => (
-                  <li key={feature}>{feature}</li>
+                {p.items.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
             </article>
@@ -244,14 +255,12 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="section faqSection">
-        <div className="sectionHeader">
-          <p className="sectionKicker">FAQ</p>
-          <h2>Posisi MVP dibuat jelas sejak awal.</h2>
-        </div>
+      <section className="section" id="faq">
+        <p className="sectionKicker">FAQ</p>
+        <h2>Pertanyaan yang sering ditanyakan.</h2>
         <div className="faqGrid">
           {faqs.map((faq) => (
-            <article className="card" key={faq.q}>
+            <article className="faqCard" key={faq.q}>
               <h3>{faq.q}</h3>
               <p>{faq.a}</p>
             </article>
@@ -259,18 +268,17 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="demoBand" id="demo">
-        <div className="demoLayout">
+      <section className="demoSection" id="demo">
+        <div className="section demoLayout">
           <div>
-            <p className="sectionKicker">Demo</p>
-            <h2>Kirim satu contoh inquiry bisnis Anda.</h2>
-            <p>
-              Sistem akan mencatat lead ke workflow Opsora dan mengembalikan
-              draft balasan awal jika backend demo sedang aktif.
+            <p className="sectionKicker">Demo Gratis</p>
+            <h2>Coba dengan inquiry bisnis Anda.</h2>
+            <p className="sectionDesc">
+              Pilih segmen bisnis, kirim contoh inquiry, dan lihat bagaimana Opsora menyiapkan draft
+              balasan serta mencatat lead ke CRM.
             </p>
-            <p className="privacyNote">
-              Data form hanya dipakai untuk demo dan follow-up manual Opsora.
-              Jangan kirim data sensitif pelanggan.
+            <p className="trustLine" style={{ marginTop: 24 }}>
+              Pilot 7 hari mulai Rp 300rb. Audit inquiry flow gratis.
             </p>
           </div>
 
@@ -284,8 +292,18 @@ export default function Page() {
               <input name="business" required maxLength={160} placeholder="Contoh: Villa Sari Bali" />
             </label>
             <label>
+              Jenis bisnis
+              <select name="segment" defaultValue="">
+                {segmentOptions.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
               Nomor WhatsApp
-              <input name="phone" maxLength={60} placeholder="+62..." />
+              <input name="phone" required maxLength={60} inputMode="tel" placeholder="+62..." />
             </label>
             <label>
               Kebutuhan
@@ -293,9 +311,13 @@ export default function Page() {
                 name="need"
                 required
                 maxLength={1500}
-                rows={5}
-                placeholder="Contoh: Butuh sistem balas inquiry tamu dan catat booking request untuk villa."
+                rows={4}
+                placeholder="Contoh: Butuh sistem balas inquiry tamu villa dan catat booking request."
               />
+            </label>
+            <label className="spamTrap" aria-hidden="true">
+              Website
+              <input name="website" tabIndex={-1} autoComplete="off" />
             </label>
             <button type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Mengirim..." : "Kirim & Minta Demo"}
@@ -310,427 +332,10 @@ export default function Page() {
         </div>
       </section>
 
-      <style jsx>{`
-        :global(*) {
-          box-sizing: border-box;
-        }
-
-        .page {
-          min-height: 100vh;
-          background: #f6f4ef;
-          color: #17211c;
-          font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .hero {
-          position: relative;
-          min-height: 78vh;
-          display: flex;
-          align-items: flex-end;
-          overflow: hidden;
-          padding: 120px 20px 64px;
-          background: #17211c;
-        }
-
-        .heroImage {
-          object-fit: cover;
-          object-position: center;
-          opacity: 0.86;
-        }
-
-        .heroOverlay {
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(90deg, rgba(13, 23, 18, 0.92) 0%, rgba(13, 23, 18, 0.62) 44%, rgba(13, 23, 18, 0.16) 100%),
-            linear-gradient(0deg, rgba(13, 23, 18, 0.72) 0%, rgba(13, 23, 18, 0.06) 56%);
-        }
-
-        .heroContent {
-          position: relative;
-          z-index: 1;
-          width: min(1080px, 100%);
-          margin: 0 auto;
-          color: #ffffff;
-        }
-
-        .eyebrow,
-        .sectionKicker {
-          margin: 0 0 12px;
-          color: #2f8f72;
-          font-size: 13px;
-          font-weight: 800;
-          letter-spacing: 0;
-          text-transform: uppercase;
-        }
-
-        .hero .eyebrow {
-          color: #8fe3c2;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-          margin-top: 0;
-        }
-
-        h1 {
-          max-width: 700px;
-          margin-bottom: 18px;
-          font-size: clamp(42px, 8vw, 84px);
-          line-height: 0.98;
-          letter-spacing: 0;
-        }
-
-        h2 {
-          margin-bottom: 14px;
-          font-size: clamp(28px, 4vw, 44px);
-          line-height: 1.08;
-          letter-spacing: 0;
-        }
-
-        h3 {
-          margin-bottom: 10px;
-          font-size: 19px;
-          line-height: 1.25;
-        }
-
-        .heroCopy {
-          max-width: 670px;
-          color: #f1f7f1;
-          font-size: 20px;
-          line-height: 1.55;
-        }
-
-        .heroActions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 28px;
-        }
-
-        .primaryAction,
-        .secondaryAction,
-        .leadForm button {
-          min-height: 46px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 8px;
-          padding: 13px 18px;
-          font-weight: 800;
-          text-decoration: none;
-        }
-
-        .primaryAction,
-        .leadForm button {
-          border: 0;
-          background: #f0b429;
-          color: #17211c;
-        }
-
-        .secondaryAction {
-          border: 1px solid rgba(255, 255, 255, 0.62);
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-        }
-
-        .trustLine {
-          max-width: 620px;
-          margin: 18px 0 0;
-          color: #d9e8df;
-          font-size: 14px;
-          line-height: 1.5;
-        }
-
-        .section {
-          width: min(1080px, calc(100% - 40px));
-          margin: 0 auto;
-          padding: 58px 0;
-        }
-
-        .intro {
-          display: grid;
-          grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-          gap: 34px;
-          align-items: start;
-        }
-
-        .intro p,
-        .card p,
-        .demoLayout p {
-          color: #4a554f;
-          line-height: 1.65;
-        }
-
-        .sectionHeader {
-          max-width: 760px;
-          margin-bottom: 26px;
-        }
-
-        .segmentGrid,
-        .pricingGrid,
-        .faqGrid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-          gap: 14px;
-        }
-
-        .card {
-          min-width: 0;
-          border: 1px solid #d8d2c4;
-          border-radius: 8px;
-          padding: 20px;
-          background: #fffdfa;
-        }
-
-        .segmentCard {
-          border-top: 4px solid #2f8f72;
-        }
-
-        .band {
-          background: #e9efe7;
-          border-top: 1px solid #d4dfd1;
-          border-bottom: 1px solid #d4dfd1;
-        }
-
-        .workflowSection {
-          padding: 54px 0;
-        }
-
-        .workflowGrid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 12px;
-        }
-
-        .workflowItem {
-          min-width: 0;
-          border-left: 4px solid #c95f3f;
-          padding: 12px 14px;
-          background: #f8fbf7;
-        }
-
-        .workflowItem span {
-          display: block;
-          margin-bottom: 8px;
-          color: #c95f3f;
-          font-weight: 900;
-        }
-
-        .workflowItem p {
-          margin: 0;
-          line-height: 1.45;
-        }
-
-        .handoffSection {
-          padding-bottom: 28px;
-        }
-
-        .handoffGrid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 12px;
-        }
-
-        .handoffItem {
-          min-width: 0;
-          display: grid;
-          grid-template-columns: 28px minmax(0, 1fr);
-          gap: 10px;
-          align-items: start;
-          border: 1px solid #d8d2c4;
-          border-radius: 8px;
-          padding: 14px;
-          background: #fffdfa;
-        }
-
-        .handoffItem span {
-          display: inline-flex;
-          width: 28px;
-          height: 28px;
-          align-items: center;
-          justify-content: center;
-          border-radius: 999px;
-          background: #dff3ec;
-          color: #17624d;
-          font-weight: 900;
-        }
-
-        .handoffItem p {
-          margin: 0;
-          color: #4a554f;
-          line-height: 1.45;
-        }
-
-        .priceCard.featured {
-          border-color: #2f8f72;
-          box-shadow: 0 16px 34px rgba(47, 143, 114, 0.16);
-        }
-
-        .price {
-          margin-bottom: 10px;
-          color: #17211c;
-          font-size: 32px;
-          font-weight: 900;
-        }
-
-        ul {
-          margin: 18px 0 0;
-          padding-left: 20px;
-          line-height: 1.8;
-        }
-
-        .demoBand {
-          background: #17211c;
-          color: #ffffff;
-          padding: 64px 20px;
-        }
-
-        .demoLayout {
-          width: min(1080px, 100%);
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: minmax(0, 0.8fr) minmax(320px, 1fr);
-          gap: 34px;
-          align-items: start;
-        }
-
-        .demoLayout p {
-          color: #dce8df;
-        }
-
-        .privacyNote {
-          margin-top: 22px;
-          padding-top: 18px;
-          border-top: 1px solid rgba(255, 255, 255, 0.16);
-          font-size: 14px;
-        }
-
-        .leadForm {
-          display: grid;
-          gap: 14px;
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          border-radius: 8px;
-          padding: 20px;
-          background: #fffdfa;
-          color: #17211c;
-        }
-
-        label {
-          display: grid;
-          gap: 7px;
-          font-size: 14px;
-          font-weight: 800;
-        }
-
-        input,
-        textarea {
-          width: 100%;
-          border: 1px solid #cfc7b7;
-          border-radius: 8px;
-          padding: 13px 12px;
-          color: #17211c;
-          font: inherit;
-          line-height: 1.4;
-          background: #ffffff;
-        }
-
-        textarea {
-          resize: vertical;
-        }
-
-        .leadForm button {
-          width: 100%;
-          cursor: pointer;
-          font: inherit;
-        }
-
-        .leadForm button:disabled {
-          cursor: not-allowed;
-          opacity: 0.72;
-        }
-
-        .formStatus {
-          margin: 2px 0 0;
-          color: #17211c;
-          font-weight: 800;
-        }
-
-        .replyBox {
-          max-height: 260px;
-          overflow: auto;
-          white-space: pre-wrap;
-          border-radius: 8px;
-          padding: 14px;
-          background: #eef4ed;
-          color: #17211c;
-          font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        }
-
-        @media (max-width: 860px) {
-          .hero {
-            min-height: 72vh;
-            padding-top: 96px;
-          }
-
-          .heroOverlay {
-            background:
-              linear-gradient(90deg, rgba(13, 23, 18, 0.9) 0%, rgba(13, 23, 18, 0.7) 100%),
-              linear-gradient(0deg, rgba(13, 23, 18, 0.74) 0%, rgba(13, 23, 18, 0.2) 62%);
-          }
-
-          .intro,
-          .demoLayout {
-            grid-template-columns: 1fr;
-          }
-
-          .workflowGrid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-
-          .handoffGrid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-        }
-
-        @media (max-width: 520px) {
-          .hero {
-            padding: 82px 16px 46px;
-          }
-
-          .heroActions {
-            display: grid;
-          }
-
-          .primaryAction,
-          .secondaryAction {
-            width: 100%;
-          }
-
-          .section {
-            width: min(100% - 28px, 1080px);
-            padding: 42px 0;
-          }
-
-          .workflowGrid {
-            grid-template-columns: 1fr;
-          }
-
-          .handoffGrid {
-            grid-template-columns: 1fr;
-          }
-
-          .demoBand {
-            padding: 48px 14px;
-          }
-
-          .leadForm {
-            padding: 16px;
-          }
-        }
-      `}</style>
+      <footer className="footer">
+        <p>Opsora AI Receptionist · Denpasar/Bali SMB · Human handoff · No auto-spam</p>
+        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2026 Opsora. MVP — draft only, admin review required.</p>
+      </footer>
     </main>
   );
 }

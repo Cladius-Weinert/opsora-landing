@@ -31,7 +31,23 @@ export const metadata: Metadata = {
     locale: "id_ID",
     type: "website"
   },
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: "Opsora AI Receptionist — Bali SMB",
+    description:
+      "Tangkap inquiry, draft balasan AI, simpan lead ke CRM. Khusus villa, gym, spa, klinik, rental di Bali.",
+    images: ["/opsora-dashboard-preview.png"]
+  },
+  keywords: [
+    "AI receptionist Bali",
+    "lead capture Bali",
+    "CRM bisnis Bali",
+    "automasi WhatsApp bisnis",
+    "AI reply villa Bali",
+    "Opsora",
+    "receptionist AI Indonesia"
+  ]
 };
 
 export const viewport: Viewport = {

@@ -35,22 +35,25 @@ const pricing = [
   {
     plan: "Starter",
     price: "Rp 750rb",
+    period: "/bulan",
     note: "Bisnis kecil mulai menangkap lead dari website.",
-    items: ["1 lead form", "AI reply basic", "CRM dashboard"],
+    items: ["1 lead form", "AI reply basic", "CRM dashboard", "Support WhatsApp"],
     featured: false
   },
   {
     plan: "Growth",
     price: "Rp 1,5jt",
+    period: "/bulan",
     note: "Villa, klinik, salon, gym — follow-up lebih rapi.",
-    items: ["AI receptionist", "Lead capture + CRM", "Status pipeline", "Human handoff"],
+    items: ["AI receptionist full", "Lead capture + CRM", "Status pipeline", "Human handoff", "Priority support"],
     featured: true
   },
   {
     plan: "Custom",
     price: "Diskusi",
+    period: "",
     note: "Integrasi booking, Sheets, Notion, workflow khusus.",
-    items: ["Automation custom", "Integrasi tools", "Dashboard khusus"],
+    items: ["Automation custom", "Integrasi tools", "Dashboard khusus", "Dedicated support"],
     featured: false
   }
 ];
@@ -243,12 +246,16 @@ export default function Page() {
         <div className="pricingGrid">
           {pricing.map((p) => (
             <article className={`priceCard ${p.featured ? "featured" : ""}`} key={p.plan}>
+              {p.featured && <span className="priceBadge">Populer</span>}
               <h3>{p.plan}</h3>
-              <div className="priceAmount">{p.price}</div>
+              <div className="priceAmount">
+                {p.price}
+                {p.period && <span className="pricePeriod">{p.period}</span>}
+              </div>
               <p className="sectionDesc">{p.note}</p>
               <ul>
                 {p.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item}>✓ {item}</li>
                 ))}
               </ul>
             </article>
@@ -333,10 +340,65 @@ export default function Page() {
         </div>
       </section>
 
+      <section className="section" id="trust">
+        <p className="sectionKicker">Kenapa Aman</p>
+        <h2>Bukan chatbot. Ini asisten yang bisa diawasi.</h2>
+        <div className="trustGrid">
+          <article className="trustCard">
+            <div className="trustIcon">🔒</div>
+            <h3>Data di Supabase</h3>
+            <p>Lead dan percakapan tersimpan di cloud database terenkripsi. Bukan spreadsheet yang bisa hilang.</p>
+          </article>
+          <article className="trustCard">
+            <div className="trustIcon">✋</div>
+            <h3>Admin Selalu Review</h3>
+            <p>Setiap draft balasan AI harus disetujui admin sebelum dikirim. Tidak ada yang auto-spam ke WhatsApp customer.</p>
+          </article>
+          <article className="trustCard">
+            <div className="trustIcon">⚡</div>
+            <h3>Draft Siap dalam 3 Menit</h3>
+            <p>Inquiry masuk, AI langsung siapkan draft balasan + ringkasan lead. Admin tinggal review dan approve.</p>
+          </article>
+          <article className="trustCard">
+            <div className="trustIcon">🎯</div>
+            <h3>12 Template Segmen</h3>
+            <p>Bukan template generik. Setiap segmen bisnis punya field intake, FAQ, dan alur handoff yang spesifik.</p>
+          </article>
+        </div>
+        <p className="pilotNote">
+          <strong>Program pilot tersedia.</strong> 7 hari trial mulai Rp 300rb. Audit inquiry flow gratis — tanpa komitmen.
+        </p>
+      </section>
+
       <footer className="footer">
-        <p>Opsora AI Receptionist · Denpasar/Bali SMB · Human handoff · No auto-spam</p>
-        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2026 Opsora. MVP — draft only, admin review required.</p>
+        <p>Opsora AI Receptionist · Denpasar/Bali · Human-in-the-loop · No auto-spam</p>
+        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. Sedang tahap MVP — draft only, admin review required.</p>
       </footer>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            name: "Opsora AI Receptionist",
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "Web",
+            description:
+              "AI receptionist untuk bisnis Bali: villa, gym, spa, klinik, rental. Lead capture, draft balasan AI, CRM, dan human handoff.",
+            offers: {
+              "@type": "Offer",
+              price: "750000",
+              priceCurrency: "IDR",
+              description: "Paket Starter — 1 lead form, AI reply basic, CRM dashboard"
+            },
+            areaServed: {
+              "@type": "Place",
+              name: "Bali, Indonesia"
+            }
+          })
+        }}
+      />
     </main>
   );
 }

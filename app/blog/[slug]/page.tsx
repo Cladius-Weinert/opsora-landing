@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 async function getPost(slug: string) {
   try {
     const { createClient } = await import("@supabase/supabase-js");
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
     if (!url || !key) return null;
 
     const supabase = createClient(url, key);
@@ -28,8 +28,8 @@ async function getPost(slug: string) {
 async function getPostMeta(slug: string) {
   try {
     const { createClient } = await import("@supabase/supabase-js");
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
     if (!url || !key) return null;
 
     const supabase = createClient(url, key);

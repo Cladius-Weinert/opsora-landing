@@ -154,6 +154,7 @@ export default function Page() {
           <a href="#workflow">Cara Kerja</a>
           <a href="#pricing">Paket</a>
           <a href="#faq">FAQ</a>
+          <a href="/blog">Blog</a>
         </div>
         <a href="#demo" className="navCta">
           Minta Demo

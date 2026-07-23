@@ -1,21 +1,30 @@
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+async function getPosts() {
+  try {
+    const { createClient } = await import("@supabase/supabase-js");
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return [];
+
+    const supabase = createClient(url, key);
+    const { data: posts } = await supabase
+      .from("marketing_content")
+      .select("id, title, slug, excerpt, tags, published_at, type")
+      .eq("type", "blog")
+      .eq("status", "published")
+      .order("published_at", { ascending: false })
+      .limit(50);
+    return posts || [];
+  } catch {
+    return [];
+  }
+}
 
 export default async function BlogPage() {
-  const { data: posts } = await supabase
-    .from("marketing_content")
-    .select("id, title, slug, excerpt, tags, published_at, type")
-    .eq("type", "blog")
-    .eq("status", "published")
-    .order("published_at", { ascending: false })
-    .limit(50);
+  const posts = await getPosts();
 
   return (
     <main className="blog-page">

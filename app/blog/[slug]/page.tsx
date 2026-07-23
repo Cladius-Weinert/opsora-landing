@@ -1,26 +1,56 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+async function getPost(slug: string) {
+  try {
+    const { createClient } = await import("@supabase/supabase-js");
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return null;
+
+    const supabase = createClient(url, key);
+    const { data: post } = await supabase
+      .from("marketing_content")
+      .select("*")
+      .eq("slug", slug)
+      .eq("type", "blog")
+      .eq("status", "published")
+      .single();
+    return post;
+  } catch {
+    return null;
+  }
+}
+
+async function getPostMeta(slug: string) {
+  try {
+    const { createClient } = await import("@supabase/supabase-js");
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return null;
+
+    const supabase = createClient(url, key);
+    const { data: post } = await supabase
+      .from("marketing_content")
+      .select("title, excerpt, tags")
+      .eq("slug", slug)
+      .eq("type", "blog")
+      .eq("status", "published")
+      .single();
+    return post;
+  } catch {
+    return null;
+  }
+}
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { data: post } = await supabase
-    .from("marketing_content")
-    .select("title, excerpt, tags")
-    .eq("slug", slug)
-    .eq("type", "blog")
-    .eq("status", "published")
-    .single();
+  const post = await getPostMeta(slug);
 
   if (!post) return { title: "Not Found" };
 
@@ -38,13 +68,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const { data: post } = await supabase
-    .from("marketing_content")
-    .select("*")
-    .eq("slug", slug)
-    .eq("type", "blog")
-    .eq("status", "published")
-    .single();
+  const post = await getPost(slug);
 
   if (!post) notFound();
 

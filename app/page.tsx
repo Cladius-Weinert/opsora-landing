@@ -22,11 +22,11 @@ const workflow = [
   "Website atau form menerima inquiry",
   "AI receptionist membuat draft balasan",
   "Lead tersimpan ke CRM lokal",
-  "Admin review lalu lanjut WhatsApp"
+  "Admin review lalu balas via email"
 ];
 
 const stats = [
-  { value: "0", label: "auto-send", detail: "WhatsApp tetap lewat approval admin" },
+  { value: "0", label: "auto-send", detail: "Semua balasan lewat approval admin" },
   { value: "12", label: "segmen Bali", detail: "Villa, gym, spa, klinik, rental, dan lainnya" },
   { value: "<3 mnt", label: "demo intake", detail: "Inquiry masuk, draft siap direview" }
 ];
@@ -37,7 +37,7 @@ const pricing = [
     price: "Rp 750rb",
     period: "/bulan",
     note: "Bisnis kecil mulai menangkap lead dari website.",
-    items: ["1 lead form", "AI reply basic", "CRM dashboard", "Support WhatsApp"],
+    items: ["1 lead form", "AI reply basic", "CRM dashboard", "Email support"],
     featured: false
   },
   {
@@ -81,8 +81,8 @@ const faqs = [
     a: "Tidak. Opsora menyiapkan draft balasan, ringkasan lead, dan saran follow-up agar admin merespons lebih cepat."
   },
   {
-    q: "Apakah langsung auto-kirim WhatsApp?",
-    a: "Tidak. Semua pesan outbound tetap lewat review manusia — tidak ada auto-spam."
+    q: "Apakah langsung auto-kirim pesan?",
+    a: "Tidak. Semua balasan tetap lewat review admin — tidak ada auto-spam ke customer Anda."
   },
   {
     q: "Cocok untuk bisnis Bali mana saja?",
@@ -186,7 +186,7 @@ export default function Page() {
             </a>
           </div>
           <p className="trustLine">
-            Tidak ada auto-send WhatsApp. Admin tetap review setiap pesan sebelum dikirim.
+            Tidak ada auto-send. Admin tetap review setiap balasan sebelum dikirim.
           </p>
         </div>
         <div className="heroVisual" />
@@ -310,8 +310,8 @@ export default function Page() {
               </select>
             </label>
             <label>
-              Nomor WhatsApp
-              <input name="phone" required maxLength={60} inputMode="tel" placeholder="+62..." />
+              Nomor Telepon (opsional)
+              <input name="phone" maxLength={60} inputMode="tel" placeholder="+62..." />
             </label>
             <label>
               Kebutuhan

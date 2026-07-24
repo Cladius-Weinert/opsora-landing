@@ -372,6 +372,9 @@ export default function Page() {
 
       <footer className="footer">
         <p>Opsora AI Receptionist · Denpasar/Bali · Human-in-the-loop · No auto-spam</p>
+        <p style={{ marginTop: 8, opacity: 0.8 }}>
+          Hubungi kami: <a href="mailto:jalankecil351@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>jalankecil351@gmail.com</a>
+        </p>
         <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. Sedang tahap MVP — draft only, admin review required.</p>
       </footer>
 

@@ -1,0 +1,23 @@
+version: 2.1
+
+jobs:
+  deploy:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - run:
+          name: Notify Opsora
+          command: |
+            curl -s -X POST "https://mwbgkkthwwlcndccnbnf.supabase.co/functions/v1/admin-notifier" \
+              -H "Content-Type: application/json" \
+              -H "X-Opsora-Token: ${OPSORA_TOKEN}" \
+              -d "{\"message\":\"Landing page deployed (build #${CIRCLE_BUILD_NUM}, ${CIRCLE_BRANCH})\"}"
+
+workflows:
+  deploy-on-push:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: main

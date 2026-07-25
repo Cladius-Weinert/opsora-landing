@@ -33,27 +33,35 @@ const stats = [
 
 const pricing = [
   {
-    plan: "Starter",
-    price: "Rp 750rb",
-    period: "/bulan",
-    note: "Bisnis kecil mulai menangkap lead dari website.",
-    items: ["1 lead form", "AI reply basic", "CRM dashboard", "Email support"],
+    plan: "Pilot",
+    price: "Rp 299rb",
+    period: "/7 hari",
+    note: "Coba dulu tanpa komitmen. Setup chatbot + lead form.",
+    items: ["AI chatbot basic", "1 lead form", "CRM dashboard", "Email support"],
     featured: false
   },
   {
-    plan: "Growth",
-    price: "Rp 1,5jt",
+    plan: "Starter",
+    price: "Rp 499rb",
     period: "/bulan",
-    note: "Villa, klinik, salon, gym — follow-up lebih rapi.",
-    items: ["AI receptionist full", "Lead capture + CRM", "Status pipeline", "Human handoff", "Priority support"],
+    note: "Bisnis kecil yang siap automate inquiry customer.",
+    items: ["AI chatbot full", "Lead capture + CRM", "Auto follow-up", "Review management", "Email support"],
     featured: true
   },
   {
-    plan: "Custom",
-    price: "Diskusi",
-    period: "",
-    note: "Integrasi booking, Sheets, Notion, workflow khusus.",
-    items: ["Automation custom", "Integrasi tools", "Dashboard khusus", "Dedicated support"],
+    plan: "Growth",
+    price: "Rp 799rb",
+    period: "/bulan",
+    note: "Villa, klinik, salon — full automation multi-channel.",
+    items: ["Semua di Starter", "Multi-location", "Social media AI", "Google Maps optimization", "Priority support"],
+    featured: false
+  },
+  {
+    plan: "Premium",
+    price: "Rp 1,49jt",
+    period: "/bulan",
+    note: "Enterprise: integrasi booking, PMS, payment gateway.",
+    items: ["Semua di Growth", "Booking integration", "Payment gateway", "Custom dashboard", "Dedicated support"],
     featured: false
   }
 ];
@@ -154,13 +162,13 @@ export default function Page() {
         </div>
         <div className="navLinks">
           <a href="#segments">Segmen</a>
-          <a href="#workflow">Cara Kerja</a>
+          <a href="#services">Layanan</a>
           <a href="#pricing">Paket</a>
           <a href="#faq">FAQ</a>
           <a href="/blog">Blog</a>
         </div>
         <a href="#demo" className="navCta">
-          Minta Demo
+          Konsultasi Gratis
         </a>
       </nav>
 
@@ -240,8 +248,48 @@ export default function Page() {
         </div>
       </section>
 
+      <section className="section" id="services">
+        <p className="sectionKicker">Layanan AI</p>
+        <h2>Selain software, kami juga jasa setup AI untuk bisnis Anda.</h2>
+        <div className="statsGrid">
+          <div className="statCard">
+            <div className="statValue">💬</div>
+            <div className="statLabel">AI Chatbot Setup</div>
+            <div className="statDetail">Setup Rp 3jt + Rp 1jt/bulan. WhatsApp + web chatbot 24/7. Live dalam 3 hari.</div>
+          </div>
+          <div className="statCard">
+            <div className="statValue">📍</div>
+            <div className="statLabel">Google Maps Optimization</div>
+            <div className="statDetail">Setup Rp 2jt + Rp 2jt/bulan. Ranking lebih tinggi, review management, posting rutin.</div>
+          </div>
+          <div className="statCard">
+            <div className="statValue">📱</div>
+            <div className="statLabel">Social Media AI</div>
+            <div className="statDetail">Rp 3jt/bulan. Content creation + scheduling + analytics Instagram & Facebook.</div>
+          </div>
+          <div className="statCard">
+            <div className="statValue">⭐</div>
+            <div className="statLabel">AI Review Responder</div>
+            <div className="statDetail">Rp 1,5jt/bulan. Auto-reply review Google + TripAdvisor dalam berbagai bahasa.</div>
+          </div>
+          <div className="statCard">
+            <div className="statValue">🔍</div>
+            <div className="statLabel">AI Readiness Audit</div>
+            <div className="statDetail">Rp 5jt. Audit kesiapan bisnis Anda untuk adopsi AI + laporan + rekomendasi.</div>
+          </div>
+          <div className="statCard">
+            <div className="statValue">🎯</div>
+            <div className="statLabel">Custom Package</div>
+            <div className="statDetail">Kombinasi layanan sesuai kebutuhan bisnis Anda. Hubungi kami untuk penawaran khusus.</div>
+          </div>
+        </div>
+        <p style={{ textAlign: "center", marginTop: 16, opacity: 0.8 }}>
+          Semua layanan bisa dimulai dengan <strong>konsultasi gratis 30 menit</strong>. Isi form di bawah untuk jadwalkan.
+        </p>
+      </section>
+
       <section className="section" id="pricing">
-        <p className="sectionKicker">Paket</p>
+        <p className="sectionKicker">Paket Software</p>
         <h2>Mulai kecil, scale setelah terbukti.</h2>
         <div className="pricingGrid">
           {pricing.map((p) => (

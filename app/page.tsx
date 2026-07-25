@@ -98,7 +98,7 @@ const faqs = [
   },
   {
     q: "Berapa biaya mulai?",
-    a: "Audit gratis. Pilot 7 hari mulai Rp 300rb. Paket Starter Rp 750rb, Growth Rp 1,5jt setup."
+    a: "Audit gratis. Pilot 7 hari mulai Rp 299rb. Starter Rp 499rb/bln, Growth Rp 799rb/bln."
   }
 ];
 
@@ -421,7 +421,7 @@ export default function Page() {
       <footer className="footer">
         <p>Opsora AI Receptionist · Denpasar/Bali · Human-in-the-loop · No auto-spam</p>
         <p style={{ marginTop: 8, opacity: 0.8 }}>
-          Hubungi kami: <a href="mailto:jalankecil351@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>jalankecil351@gmail.com</a>
+          Hubungi kami: <a href="mailto:opsora.bali@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>opsora.bali@gmail.com</a>
         </p>
         <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. Sedang tahap MVP — draft only, admin review required.</p>
       </footer>

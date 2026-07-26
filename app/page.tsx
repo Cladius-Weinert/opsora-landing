@@ -4,64 +4,79 @@ import { type FormEvent, useState } from "react";
 import HeroSceneLoader from "./components/HeroSceneLoader";
 
 const segments = [
-  { icon: "🏡", name: "Villa & Hotel", pain: "Night-time booking inquiries often missed.", tag: "Tier 1" },
-  { icon: "💆", name: "Salon & Spa", pain: "Customers ask about treatments while staff is busy.", tag: "Tier 1" },
-  { icon: "🏍️", name: "Rental & Transport", pain: "Travelers need rentals today, competitors are faster.", tag: "Tier 1" },
-  { icon: "🦷", name: "Clinic & Dentist", pain: "Repetitive patient inquiries overwhelm admin.", tag: "Tier 2" },
-  { icon: "🌴", name: "Travel & Tours", pain: "Custom packages need structured data.", tag: "Tier 2" },
-  { icon: "💪", name: "Gym & Fitness", pain: "Trial class leads not followed up.", tag: "Tier 2" },
-  { icon: "🍽️", name: "Restaurant & Cafe", pain: "Group bookings often not responded quickly.", tag: "Tier 2" },
-  { icon: "🏠", name: "Real Estate", pain: "Leads mixed together, hard to qualify.", tag: "Tier 3" },
-  { icon: "👕", name: "Laundry & Cleaning", pain: "Same-day pickup without quick confirmation.", tag: "Tier 3" },
-  { icon: "📚", name: "Education & Training", pain: "Prospective students ask about schedule and pricing repeatedly.", tag: "Tier 3" },
-  { icon: "🔧", name: "Repair Services", pain: "Issue details incomplete when urgent.", tag: "Tier 3" },
-  { icon: "🎉", name: "Event & Wedding", pain: "Wedding inquiries answered too late.", tag: "Tier 3" }
+  { icon: "🏡", name: "Vacation Rentals & Villas", pain: "Missed booking inquiries after hours cost you reservations.", tag: "Core" },
+  { icon: "💆", name: "Salons & Spas", pain: "Treatment questions flood your phone while you're busy serving clients.", tag: "Core" },
+  { icon: "🚗", name: "Car & Equipment Rental", pain: "Last-minute rental requests need instant answers, or they go to the next listing.", tag: "Core" },
+  { icon: "🦷", name: "Dental & Medical Clinics", pain: "Repetitive scheduling questions drain your admin team's time.", tag: "Growth" },
+  { icon: "✈️", name: "Travel Agencies & Tours", pain: "Custom itinerary requests slow down your response to hot leads.", tag: "Growth" },
+  { icon: "💪", name: "Gyms & Fitness Studios", pain: "Trial class leads slip through when follow-up isn't immediate.", tag: "Growth" },
+  { icon: "🍽️", name: "Restaurants & Cafes", pain: "Group bookings and event inquiries take too long to confirm.", tag: "Growth" },
+  { icon: "🏠", name: "Real Estate Agents", pain: "Property inquiries from multiple channels get mixed and forgotten.", tag: "Scale" },
+  { icon: "🧹", name: "Cleaning & Laundry Services", pain: "Same-day service requests need quick confirmation to keep trucks moving.", tag: "Scale" },
+  { icon: "📚", name: "Education & Training Centers", pain: "Prospects ask the same schedule and pricing questions repeatedly.", tag: "Scale" },
+  { icon: "🔧", name: "Repair & Maintenance", pain: "Incomplete issue details cause wasted dispatch trips.", tag: "Scale" },
+  { icon: "🎉", name: "Events & Wedding Planners", pain: "Wedding inquiry emails answered too late means lost bookings.", tag: "Scale" }
 ];
 
 const workflow = [
-  "Website or form receives inquiry",
-  "AI receptionist creates reply draft",
-  "Lead saved to local CRM",
-  "Admin reviews and replies via email"
+  "Inquiry arrives on your website, WhatsApp, or social media",
+  "AI generates a contextual reply draft in under 3 minutes",
+  "Lead is captured in your CRM with full conversation history",
+  "Your team reviews, approves, and sends — zero auto-spam"
 ];
 
 const stats = [
-  { value: "0", label: "auto-send", detail: "All replies go through admin approval" },
-  { value: "12", label: "business segments", detail: "Villa, gym, spa, clinic, rental, and more" },
-  { value: "<3 min", label: "demo intake", detail: "Inquiry received, draft ready for review" }
+  { value: "<3", label: "Minute response time", detail: "From inquiry to draft ready for review" },
+  { value: "0%", label: "Auto-send rate", detail: "Every message passes through human approval" },
+  { value: "12+", label: "Industry segments", detail: "Tailored templates built-in from day one" },
+  { value: "∞", label: "Scale potential", detail: "Handle 1 or 1,000 conversations without hiring" }
 ];
 
 const pricing = [
   {
-    plan: "Pilot",
-    price: "$19",
-    period: "/7 days",
-    note: "Try it first, no commitment. Setup chatbot + lead form.",
-    items: ["Basic AI chatbot", "1 lead form", "CRM dashboard", "Email support"],
-    featured: false
-  },
-  {
     plan: "Starter",
-    price: "$39",
+    price: "$49",
     period: "/month",
-    note: "Small business ready to automate customer inquiries.",
-    items: ["Full AI chatbot", "Lead capture + CRM", "Auto follow-up", "Review management", "Email support"],
-    featured: true
+    note: "One business, lead capture and AI response automation.",
+    items: [
+      "1 business account",
+      "AI reply drafts (unlimited leads)",
+      "CRM dashboard with conversation history",
+      "Email notifications",
+      "Manual approval workflow"
+    ],
+    featured: false
   },
   {
     plan: "Growth",
-    price: "$69",
+    price: "$99",
     period: "/month",
-    note: "Villa, clinic, salon — full multi-channel automation.",
-    items: ["Everything in Starter", "Multi-location", "Social media AI", "Google Maps optimization", "Priority support"],
-    featured: false
+    note: "Multi-location teams that need advanced features and integrations.",
+    items: [
+      "Up to 5 business accounts",
+      "Everything in Starter",
+      "WhatsApp integration via WATI",
+      "Lead scoring & priority routing",
+      "Follow-up sequences",
+      "Analytics & reporting",
+      "API access"
+    ],
+    featured: true
   },
   {
-    plan: "Premium",
-    price: "$129",
-    period: "/month",
-    note: "Enterprise: booking integration, PMS, payment gateway.",
-    items: ["Everything in Growth", "Booking integration", "Payment gateway", "Custom dashboard", "Dedicated support"],
+    plan: "Enterprise",
+    price: "",
+    period: "Custom",
+    note: "Unlimited scale with dedicated support and custom integrations.",
+    items: [
+      "Unlimited business accounts",
+      "Everything in Growth",
+      "Booking system integration",
+      "Payment gateway (Stripe, Midtrans)",
+      "Dedicated account manager",
+      "Custom SLA & uptime guarantee",
+      "Onboarding & training included"
+    ],
     featured: false
   }
 ];
@@ -85,20 +100,24 @@ const segmentOptions = [
 
 const faqs = [
   {
-    q: "Does this replace my admin?",
-    a: "No. Opsora prepares reply drafts, lead summaries, and follow-up suggestions so your admin can respond faster."
+    q: "Does Opsora replace my customer service team?",
+    a: "No. Opsora handles the first response — generating a quality draft your team reviews and approves. Think of it as giving every team member an extra set of hands for the repetitive inquiries."
   },
   {
-    q: "Does it auto-send messages?",
-    a: "No. All replies go through admin review — no auto-spam to your customers."
+    q: "Will it auto-send messages to my customers?",
+    a: "Not without your approval. Every message goes through human review before anything is sent. You have full control over timing, tone, and content."
   },
   {
-    q: "Which businesses is this suitable for?",
-    a: "Villa, gym, spa, clinic, rental, travel, restaurant, laundry, education, repair, event — 12 segments with ready-made templates."
+    q: "What industries does this work for?",
+    a: "We start with service businesses that handle inbound inquiries: vacation rentals, salons, clinics, restaurants, real estate, repair services, and more. The AI adapts to your specific business based on your segment selection."
   },
   {
-    q: "How much does it cost to start?",
-    a: "Free audit. 7-day pilot starting at $300. Starter plan $39/month, Growth plan $69/month."
+    q: "How much does it cost to get started?",
+    a: "We offer a free consultation where we'll map out exactly what you need. Our Starter plan starts at $49/month for single-business use. We also offer managed setup services if you want us to configure everything for you."
+  },
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes. There are no long-term contracts. If you cancel, your data is retained for 30 days so you can export it before your account closes."
   }
 ];
 
@@ -175,22 +194,23 @@ export default function Page() {
       <section className="hero">
         <HeroSceneLoader />
         <div className="heroContent">
-          <p className="eyebrow">Bali SMB · AI Receptionist</p>
+          <p className="eyebrow">AI Receptionist · Built for Service Businesses</p>
           <h1>
-            <span className="gradient">Respond to Leads Faster.</span>
+            <span className="gradient">Your customers shouldn't have to wait.</span>
             <br />
-            Don't Miss Customers.
+            Your team shouldn't be drowning either.
           </h1>
           <p className="heroCopy">
-            Opsora captures website inquiries, creates AI reply drafts, saves leads to CRM,
-            and prepares follow-ups — specifically for Bali businesses: villas, gyms, spas, clinics, rentals, and more.
+            Opsora captures every inquiry — from your website, WhatsApp, or social media — 
+            generates a contextual reply draft in under 3 minutes, and saves it to your CRM. 
+            Your team reviews, approves, and sends. No auto-spam. No missed leads.
           </p>
           <div className="heroActions">
             <a href="#demo" className="btnPrimary">
-              Get Free Demo →
+              Request a Live Demo →
             </a>
-            <a href="#segments" className="btnSecondary">
-              See 12 Business Segments
+            <a href="#pricing" className="btnSecondary">
+              View Pricing
             </a>
           </div>
           <p className="trustLine">
@@ -201,11 +221,10 @@ export default function Page() {
       </section>
 
       <section className="section" id="segments">
-        <p className="sectionKicker">12 Business Segments</p>
-        <h2>Built for local businesses that thrive on fast response.</h2>
+        <p className="sectionKicker">Who It's For</p>
+        <h2>Built for service businesses that thrive on fast response.</h2>
         <p className="sectionDesc">
-          From villas in Seminyak to gyms in Canggu — each segment has tailored FAQ fields,
-          intake fields, and safe handoff flows.
+          Each industry segment has tailored FAQ fields, intake flows, and context-aware AI responses built in from day one.
         </p>
         <div className="segmentGrid">
           {segments.map((s) => (
@@ -249,42 +268,36 @@ export default function Page() {
       </section>
 
       <section className="section" id="services">
-        <p className="sectionKicker">AI Services</p>
-        <h2>Besides software, we also offer AI setup services for your business.</h2>
+        <p className="sectionKicker">Managed Services</p>
+        <h2>Beyond software — we also handle the setup for you.</h2>
+        <p className="sectionDesc">
+          Most teams don't just want a tool. They want a system that's configured, tested, 
+          and running. Our managed services get your AI receptionist live in days, not months.
+        </p>
         <div className="statsGrid">
           <div className="statCard">
             <div className="statValue">💬</div>
             <div className="statLabel">AI Chatbot Setup</div>
-            <div className="statDetail">Setup Rp 3jt + Rp 1jt/bulan. WhatsApp + web chatbot 24/7. Live in 3 days.</div>
+            <div className="statDetail">WhatsApp + web chatbot deployed in 3 business days. We configure the prompts, integrate your channels, and train on your FAQ data.</div>
           </div>
           <div className="statCard">
             <div className="statValue">📍</div>
-            <div className="statLabel">Google Maps Optimization</div>
-            <div className="statDetail">Setup Rp 2jt + Rp 2jt/bulan. Higher ranking, review management, regular posting.</div>
+            <div className="statLabel">Google Business Profile Optimization</div>
+            <div className="statDetail">Higher local ranking, review management with AI-assisted replies, consistent posting schedule across all your locations.</div>
           </div>
           <div className="statCard">
             <div className="statValue">📱</div>
-            <div className="statLabel">Social Media AI</div>
-            <div className="statDetail">Rp 3jt/bulan. Content creation + scheduling + analytics for Instagram & Facebook.</div>
+            <div className="statLabel">Social Media Content Automation</div>
+            <div className="statDetail">AI generates brand-consistent posts for Instagram and Facebook — scheduled, reviewed, and published on autopilot.</div>
           </div>
           <div className="statCard">
             <div className="statValue">⭐</div>
-            <div className="statLabel">AI Review Responder</div>
-            <div className="statDetail">Rp 1,5jt/bulan. Auto-reply to Google + TripAdvisor reviews in multiple languages.</div>
-          </div>
-          <div className="statCard">
-            <div className="statValue">🔍</div>
-            <div className="statLabel">AI Readiness Audit</div>
-            <div className="statDetail">Rp 5jt. Audit your business readiness for AI adoption + report + recommendations.</div>
-          </div>
-          <div className="statCard">
-            <div className="statValue">🎯</div>
-            <div className="statLabel">Custom Package</div>
-            <div className="statDetail">Combination of services tailored to your business needs. Contact us for a custom quote.</div>
+            <div className="statLabel">Review Response Management</div>
+            <div className="statDetail">Auto-draft responses to Google and TripAdvisor reviews in multiple languages. Your team approves before anything goes out.</div>
           </div>
         </div>
-        <p style={{ textAlign: "center", marginTop: 16, opacity: 0.8 }}>
-          All services can start with a <strong>free 30-minute consultation</strong>. Fill out the form below to schedule.
+        <p style={{ textAlign: "center", marginTop: 24, opacity: 0.75, fontSize: "0.95rem" }}>
+          Start with a free 30-minute consultation. Tell us about your business and we'll propose exactly what to build.
         </p>
       </section>
 
@@ -327,14 +340,14 @@ export default function Page() {
       <section className="demoSection" id="demo">
         <div className="section demoLayout">
           <div>
-            <p className="sectionKicker">Free Demo</p>
-            <h2>Try it with your business inquiry.</h2>
+            <p className="sectionKicker">Live Demo</p>
+            <h2>See it in action with your own inquiry.</h2>
             <p className="sectionDesc">
-              Select your business segment, send a sample inquiry, and see how Opsora prepares
-              a reply draft and logs the lead to CRM.
+              Select your business segment, share a sample customer question, 
+              and watch Opsora generate a contextual reply draft and capture the lead — in real time.
             </p>
             <p className="trustLine" style={{ marginTop: 24 }}>
-              7-day pilot starting at $300. Free inquiry flow audit.
+              Free consultation included. No credit card required to get started.
             </p>
           </div>
 
@@ -389,41 +402,38 @@ export default function Page() {
       </section>
 
       <section className="section" id="trust">
-        <p className="sectionKicker">Why It's Safe</p>
-        <h2>Not a chatbot. This is an assistant that can be supervised.</h2>
+        <p className="sectionKicker">Why Teams Choose Opsora</p>
+        <h2>Built for businesses that care about quality.</h2>
         <div className="trustGrid">
           <article className="trustCard">
             <div className="trustIcon">🔒</div>
-            <h3>Data in Supabase</h>
-            <p>Leads and conversations are stored in an encrypted cloud database. Not a spreadsheet that can be lost.</p>
+            <h3>Enterprise Infrastructure</h3>
+            <p>Hosted on Supabase with encrypted cloud storage. Your lead data never touches a shared spreadsheet or third-party CRM.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">✋</div>
-            <h3>Admin Always Reviews</h3>
-            <p>Every AI reply draft must be approved by the admin before sending. No auto-spam to WhatsApp customers.</p>
+            <h3>Human Approval Every Time</h3>
+            <p>Zero auto-send by default. Every AI draft is reviewed and approved by your team before reaching any customer.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">⚡</div>
-            <h3>Ready in 3 Minutes</h3>
-            <p>Inquiry arrives, AI prepares a reply draft + lead summary. Admin just reviews and approves.</p>
+            <h3>Drafts in Under 3 Minutes</h3>
+            <p>Inquiry arrives, multi-model AI generates a contextual reply draft. Ready for review while competitors are still reading the email.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">🎯</div>
-            <h3>12 Segment-Specific Templates</h3>
-            <p>Not a generic template. Each business segment has specific intake fields, FAQs, and handoff flows.</p>
+            <h3>Industry-Specific Intelligence</h3>
+            <p>Tailored prompt engineering per segment. Not generic templates — your AI understands villas differently than clinics.</p>
           </article>
         </div>
-        <p className="pilotNote">
-          <strong>Pilot program available.</strong> 7-day trial starting at $300. Free inquiry flow audit — no commitment.
-        </p>
       </section>
 
       <footer className="footer">
-        <p>Opsora AI Receptionist · Denpasar/Bali · Human-in-the-loop · No auto-spam</p>
+        <p>Opsora · AI Receptionist for Service Businesses</p>
         <p style={{ marginTop: 8, opacity: 0.8 }}>
-          Contact us: <a href="mailto:opsora.bali@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>opsora.bali@gmail.com</a>
+          Contact us: <a href="mailto:hello@useopsora.com" style={{ color: "inherit", textDecoration: "underline" }}>hello@useopsora.com</a>
         </p>
-        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. In MVP stage — draft only, admin review required.</p>
+        <p style={{ marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Opsora. All rights reserved.</p>
       </footer>
 
       <script
@@ -436,16 +446,17 @@ export default function Page() {
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
             description:
-              "AI receptionist untuk bisnis Bali: villa, gym, spa, klinik, rental. Lead capture, draft balasan AI, CRM, dan human handoff.",
+              "AI receptionist that captures inquiries, generates reply drafts, and manages lead follow-ups for service businesses. Human-in-the-loop approval workflow.",
             offers: {
               "@type": "Offer",
-              price: "750000",
-              priceCurrency: "IDR",
-              description: "Paket Starter — 1 lead form, AI reply basic, CRM dashboard"
+              price: "49",
+              priceCurrency: "USD",
+              description: "Starter plan — 1 business account, AI reply drafts, CRM dashboard"
             },
-            areaServed: {
-              "@type": "Place",
-              name: "Bali, Indonesia"
+            provider: {
+              "@type": "Organization",
+              name: "Opsora",
+              email: "hello@useopsora.com"
             }
           })
         }}

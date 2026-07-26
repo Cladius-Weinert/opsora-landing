@@ -4,101 +4,101 @@ import { type FormEvent, useState } from "react";
 import HeroSceneLoader from "./components/HeroSceneLoader";
 
 const segments = [
-  { icon: "🏡", name: "Villa & Hotel", pain: "Inquiry booking malam hari sering terlewat.", tag: "Tier 1" },
-  { icon: "💆", name: "Salon & Spa", pain: "Customer tanya treatment saat staff sibuk.", tag: "Tier 1" },
-  { icon: "🏍️", name: "Rental Motor & Mobil", pain: "Traveler butuh motor hari ini, kompetitor lebih cepat.", tag: "Tier 1" },
-  { icon: "🦷", name: "Klinik & Dentist", pain: "Inquiry pasien berulang, admin kewalahan.", tag: "Tier 2" },
-  { icon: "🌴", name: "Travel & Tour", pain: "Paket custom butuh data terstruktur.", tag: "Tier 2" },
-  { icon: "💪", name: "Gym & Fitness", pain: "Trial class tidak di-follow-up.", tag: "Tier 2" },
-  { icon: "🍽️", name: "Restaurant & Cafe", pain: "Grup booking sering tidak direspons cepat.", tag: "Tier 2" },
-  { icon: "🏠", name: "Property Agent", pain: "Lead campur aduk, sulit kualifikasi.", tag: "Tier 3" },
-  { icon: "👕", name: "Laundry", pain: "Pickup hari ini tanpa konfirmasi cepat.", tag: "Tier 3" },
-  { icon: "📚", name: "Course & School", pain: "Calon siswa tanya jadwal dan harga berulang.", tag: "Tier 3" },
-  { icon: "🔧", name: "Repair Service", pain: "Detail masalah tidak lengkap saat urgent.", tag: "Tier 3" },
-  { icon: "🎉", name: "Event Vendor", pain: "Inquiry wedding terlambat dijawab.", tag: "Tier 3" }
+  { icon: "🏡", name: "Villa & Hotel", pain: "Night-time booking inquiries often missed.", tag: "Tier 1" },
+  { icon: "💆", name: "Salon & Spa", pain: "Customers ask about treatments while staff is busy.", tag: "Tier 1" },
+  { icon: "🏍️", name: "Rental & Transport", pain: "Travelers need rentals today, competitors are faster.", tag: "Tier 1" },
+  { icon: "🦷", name: "Clinic & Dentist", pain: "Repetitive patient inquiries overwhelm admin.", tag: "Tier 2" },
+  { icon: "🌴", name: "Travel & Tours", pain: "Custom packages need structured data.", tag: "Tier 2" },
+  { icon: "💪", name: "Gym & Fitness", pain: "Trial class leads not followed up.", tag: "Tier 2" },
+  { icon: "🍽️", name: "Restaurant & Cafe", pain: "Group bookings often not responded quickly.", tag: "Tier 2" },
+  { icon: "🏠", name: "Real Estate", pain: "Leads mixed together, hard to qualify.", tag: "Tier 3" },
+  { icon: "👕", name: "Laundry & Cleaning", pain: "Same-day pickup without quick confirmation.", tag: "Tier 3" },
+  { icon: "📚", name: "Education & Training", pain: "Prospective students ask about schedule and pricing repeatedly.", tag: "Tier 3" },
+  { icon: "🔧", name: "Repair Services", pain: "Issue details incomplete when urgent.", tag: "Tier 3" },
+  { icon: "🎉", name: "Event & Wedding", pain: "Wedding inquiries answered too late.", tag: "Tier 3" }
 ];
 
 const workflow = [
-  "Website atau form menerima inquiry",
-  "AI receptionist membuat draft balasan",
-  "Lead tersimpan ke CRM lokal",
-  "Admin review lalu balas via email"
+  "Website or form receives inquiry",
+  "AI receptionist creates reply draft",
+  "Lead saved to local CRM",
+  "Admin reviews and replies via email"
 ];
 
 const stats = [
-  { value: "0", label: "auto-send", detail: "Semua balasan lewat approval admin" },
-  { value: "12", label: "segmen Bali", detail: "Villa, gym, spa, klinik, rental, dan lainnya" },
-  { value: "<3 mnt", label: "demo intake", detail: "Inquiry masuk, draft siap direview" }
+  { value: "0", label: "auto-send", detail: "All replies go through admin approval" },
+  { value: "12", label: "business segments", detail: "Villa, gym, spa, clinic, rental, and more" },
+  { value: "<3 min", label: "demo intake", detail: "Inquiry received, draft ready for review" }
 ];
 
 const pricing = [
   {
     plan: "Pilot",
-    price: "Rp 299rb",
-    period: "/7 hari",
-    note: "Coba dulu tanpa komitmen. Setup chatbot + lead form.",
-    items: ["AI chatbot basic", "1 lead form", "CRM dashboard", "Email support"],
+    price: "$19",
+    period: "/7 days",
+    note: "Try it first, no commitment. Setup chatbot + lead form.",
+    items: ["Basic AI chatbot", "1 lead form", "CRM dashboard", "Email support"],
     featured: false
   },
   {
     plan: "Starter",
-    price: "Rp 499rb",
-    period: "/bulan",
-    note: "Bisnis kecil yang siap automate inquiry customer.",
-    items: ["AI chatbot full", "Lead capture + CRM", "Auto follow-up", "Review management", "Email support"],
+    price: "$39",
+    period: "/month",
+    note: "Small business ready to automate customer inquiries.",
+    items: ["Full AI chatbot", "Lead capture + CRM", "Auto follow-up", "Review management", "Email support"],
     featured: true
   },
   {
     plan: "Growth",
-    price: "Rp 799rb",
-    period: "/bulan",
-    note: "Villa, klinik, salon — full automation multi-channel.",
-    items: ["Semua di Starter", "Multi-location", "Social media AI", "Google Maps optimization", "Priority support"],
+    price: "$69",
+    period: "/month",
+    note: "Villa, clinic, salon — full multi-channel automation.",
+    items: ["Everything in Starter", "Multi-location", "Social media AI", "Google Maps optimization", "Priority support"],
     featured: false
   },
   {
     plan: "Premium",
-    price: "Rp 1,49jt",
-    period: "/bulan",
-    note: "Enterprise: integrasi booking, PMS, payment gateway.",
-    items: ["Semua di Growth", "Booking integration", "Payment gateway", "Custom dashboard", "Dedicated support"],
+    price: "$129",
+    period: "/month",
+    note: "Enterprise: booking integration, PMS, payment gateway.",
+    items: ["Everything in Growth", "Booking integration", "Payment gateway", "Custom dashboard", "Dedicated support"],
     featured: false
   }
 ];
 
 const segmentOptions = [
-  { value: "", label: "Pilih jenis bisnis (opsional)" },
+  { value: "", label: "Select business type (optional)" },
   { value: "villa", label: "Villa / Hotel" },
   { value: "salon", label: "Salon / Spa" },
-  { value: "rental", label: "Rental Motor / Mobil" },
-  { value: "clinic", label: "Klinik / Dentist" },
-  { value: "travel", label: "Travel / Tour" },
+  { value: "rental", label: "Rental / Transport" },
+  { value: "clinic", label: "Clinic / Dentist" },
+  { value: "travel", label: "Travel / Tours" },
   { value: "gym", label: "Gym / Fitness" },
   { value: "restaurant", label: "Restaurant / Cafe" },
-  { value: "property", label: "Property Agent" },
-  { value: "laundry", label: "Laundry" },
-  { value: "course", label: "Course / School" },
-  { value: "repair", label: "Repair Service" },
-  { value: "event", label: "Event Vendor" },
-  { value: "other", label: "Lainnya" }
+  { value: "property", label: "Real Estate" },
+  { value: "laundry", label: "Laundry / Cleaning" },
+  { value: "course", label: "Education / Training" },
+  { value: "repair", label: "Repair Services" },
+  { value: "event", label: "Event / Wedding" },
+  { value: "other", label: "Other" }
 ];
 
 const faqs = [
   {
-    q: "Apakah ini menggantikan admin?",
-    a: "Tidak. Opsora menyiapkan draft balasan, ringkasan lead, dan saran follow-up agar admin merespons lebih cepat."
+    q: "Does this replace my admin?",
+    a: "No. Opsora prepares reply drafts, lead summaries, and follow-up suggestions so your admin can respond faster."
   },
   {
-    q: "Apakah langsung auto-kirim pesan?",
-    a: "Tidak. Semua balasan tetap lewat review admin — tidak ada auto-spam ke customer Anda."
+    q: "Does it auto-send messages?",
+    a: "No. All replies go through admin review — no auto-spam to your customers."
   },
   {
-    q: "Cocok untuk bisnis Bali mana saja?",
-    a: "Villa, gym, spa, klinik, rental, travel, restaurant, laundry, course, repair, event — 12 segmen dengan template siap pakai."
+    q: "Which businesses is this suitable for?",
+    a: "Villa, gym, spa, clinic, rental, travel, restaurant, laundry, education, repair, event — 12 segments with ready-made templates."
   },
   {
-    q: "Berapa biaya mulai?",
-    a: "Audit gratis. Pilot 7 hari mulai Rp 299rb. Starter Rp 499rb/bln, Growth Rp 799rb/bln."
+    q: "How much does it cost to start?",
+    a: "Free audit. 7-day pilot starting at $300. Starter plan $39/month, Growth plan $69/month."
   }
 ];
 
@@ -111,7 +111,7 @@ export default function Page() {
 
   async function submitLead(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("Mengirim...");
+    setStatus("Sending...");
     setReply("");
     setIsSubmitting(true);
 
@@ -140,15 +140,15 @@ export default function Page() {
       const data = (await res.json().catch(() => ({}))) as LeadResponse;
 
       if (!res.ok || !data.ok) {
-        setStatus("Gagal mengirim. Silakan coba lagi atau hubungi kami langsung.");
+        setStatus("Failed to send. Please try again or contact us directly.");
         return;
       }
 
-      setStatus("Lead terkirim! Kami akan follow-up untuk demo singkat.");
+      setStatus("Lead submitted! We'll follow up for a quick demo.");
       setReply(data.reply || "");
       e.currentTarget.reset();
     } catch {
-      setStatus("Gagal mengirim. Silakan coba lagi atau hubungi kami langsung.");
+      setStatus("Failed to send. Please try again or contact us directly.");
     } finally {
       setIsSubmitting(false);
     }
@@ -161,14 +161,14 @@ export default function Page() {
           <span>Opsora</span>
         </div>
         <div className="navLinks">
-          <a href="#segments">Segmen</a>
-          <a href="#services">Layanan</a>
-          <a href="#pricing">Paket</a>
+          <a href="#segments">Segments</a>
+          <a href="#services">Services</a>
+          <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
           <a href="/blog">Blog</a>
         </div>
         <a href="#demo" className="navCta">
-          Konsultasi Gratis
+          Free Consultation
         </a>
       </nav>
 
@@ -177,35 +177,35 @@ export default function Page() {
         <div className="heroContent">
           <p className="eyebrow">Bali SMB · AI Receptionist</p>
           <h1>
-            <span className="gradient">Balas Lead Lebih Cepat.</span>
+            <span className="gradient">Respond to Leads Faster.</span>
             <br />
-            Jangan Kehilangan Customer.
+            Don't Miss Customers.
           </h1>
           <p className="heroCopy">
-            Opsora menangkap inquiry dari website, membuat draft balasan AI, menyimpan lead ke CRM,
-            dan menyiapkan follow-up — khusus bisnis Bali: villa, gym, spa, klinik, rental, dan lainnya.
+            Opsora captures website inquiries, creates AI reply drafts, saves leads to CRM,
+            and prepares follow-ups — specifically for Bali businesses: villas, gyms, spas, clinics, rentals, and more.
           </p>
           <div className="heroActions">
             <a href="#demo" className="btnPrimary">
-              Minta Demo Gratis →
+              Get Free Demo →
             </a>
             <a href="#segments" className="btnSecondary">
-              Lihat 12 Segmen Bali
+              See 12 Business Segments
             </a>
           </div>
           <p className="trustLine">
-            Tidak ada auto-send. Admin tetap review setiap balasan sebelum dikirim.
+            No auto-send. Admin reviews every reply before sending.
           </p>
         </div>
         <div className="heroVisual" />
       </section>
 
       <section className="section" id="segments">
-        <p className="sectionKicker">12 Segmen Bali</p>
-        <h2>Dibuat untuk bisnis lokal yang hidup dari respons cepat.</h2>
+        <p className="sectionKicker">12 Business Segments</p>
+        <h2>Built for local businesses that thrive on fast response.</h2>
         <p className="sectionDesc">
-          Dari villa di Seminyak sampai gym di Canggu — setiap segmen punya template FAQ, field intake,
-          dan alur handoff yang aman.
+          From villas in Seminyak to gyms in Canggu — each segment has tailored FAQ fields,
+          intake fields, and safe handoff flows.
         </p>
         <div className="segmentGrid">
           {segments.map((s) => (
@@ -221,8 +221,8 @@ export default function Page() {
 
       <section className="band" id="workflow">
         <div className="section">
-          <p className="sectionKicker">Cara kerja</p>
-          <h2>Dari inquiry sampai follow-up — tetap bisa diawasi.</h2>
+          <p className="sectionKicker">How It Works</p>
+          <h2>From inquiry to follow-up — always under supervision.</h2>
           <div className="workflowGrid">
             {workflow.map((step, i) => (
               <div className="workflowStep" key={step}>
@@ -235,8 +235,8 @@ export default function Page() {
       </section>
 
       <section className="section">
-        <p className="sectionKicker">Kenapa Opsora</p>
-        <h2>Automation yang aman untuk bisnis Bali.</h2>
+        <p className="sectionKicker">Why Opsora</p>
+        <h2>Safe automation for Bali businesses.</h2>
         <div className="statsGrid">
           {stats.map((s) => (
             <div className="statCard" key={s.label}>
@@ -249,52 +249,52 @@ export default function Page() {
       </section>
 
       <section className="section" id="services">
-        <p className="sectionKicker">Layanan AI</p>
-        <h2>Selain software, kami juga jasa setup AI untuk bisnis Anda.</h2>
+        <p className="sectionKicker">AI Services</p>
+        <h2>Besides software, we also offer AI setup services for your business.</h2>
         <div className="statsGrid">
           <div className="statCard">
             <div className="statValue">💬</div>
             <div className="statLabel">AI Chatbot Setup</div>
-            <div className="statDetail">Setup Rp 3jt + Rp 1jt/bulan. WhatsApp + web chatbot 24/7. Live dalam 3 hari.</div>
+            <div className="statDetail">Setup Rp 3jt + Rp 1jt/bulan. WhatsApp + web chatbot 24/7. Live in 3 days.</div>
           </div>
           <div className="statCard">
             <div className="statValue">📍</div>
             <div className="statLabel">Google Maps Optimization</div>
-            <div className="statDetail">Setup Rp 2jt + Rp 2jt/bulan. Ranking lebih tinggi, review management, posting rutin.</div>
+            <div className="statDetail">Setup Rp 2jt + Rp 2jt/bulan. Higher ranking, review management, regular posting.</div>
           </div>
           <div className="statCard">
             <div className="statValue">📱</div>
             <div className="statLabel">Social Media AI</div>
-            <div className="statDetail">Rp 3jt/bulan. Content creation + scheduling + analytics Instagram & Facebook.</div>
+            <div className="statDetail">Rp 3jt/bulan. Content creation + scheduling + analytics for Instagram & Facebook.</div>
           </div>
           <div className="statCard">
             <div className="statValue">⭐</div>
             <div className="statLabel">AI Review Responder</div>
-            <div className="statDetail">Rp 1,5jt/bulan. Auto-reply review Google + TripAdvisor dalam berbagai bahasa.</div>
+            <div className="statDetail">Rp 1,5jt/bulan. Auto-reply to Google + TripAdvisor reviews in multiple languages.</div>
           </div>
           <div className="statCard">
             <div className="statValue">🔍</div>
             <div className="statLabel">AI Readiness Audit</div>
-            <div className="statDetail">Rp 5jt. Audit kesiapan bisnis Anda untuk adopsi AI + laporan + rekomendasi.</div>
+            <div className="statDetail">Rp 5jt. Audit your business readiness for AI adoption + report + recommendations.</div>
           </div>
           <div className="statCard">
             <div className="statValue">🎯</div>
             <div className="statLabel">Custom Package</div>
-            <div className="statDetail">Kombinasi layanan sesuai kebutuhan bisnis Anda. Hubungi kami untuk penawaran khusus.</div>
+            <div className="statDetail">Combination of services tailored to your business needs. Contact us for a custom quote.</div>
           </div>
         </div>
         <p style={{ textAlign: "center", marginTop: 16, opacity: 0.8 }}>
-          Semua layanan bisa dimulai dengan <strong>konsultasi gratis 30 menit</strong>. Isi form di bawah untuk jadwalkan.
+          All services can start with a <strong>free 30-minute consultation</strong>. Fill out the form below to schedule.
         </p>
       </section>
 
       <section className="section" id="pricing">
-        <p className="sectionKicker">Paket Software</p>
-        <h2>Mulai kecil, scale setelah terbukti.</h2>
+        <p className="sectionKicker">Software Plans</p>
+        <h2>Start small, scale after proven results.</h2>
         <div className="pricingGrid">
           {pricing.map((p) => (
             <article className={`priceCard ${p.featured ? "featured" : ""}`} key={p.plan}>
-              {p.featured && <span className="priceBadge">Populer</span>}
+              {p.featured && <span className="priceBadge">Popular</span>}
               <h3>{p.plan}</h3>
               <div className="priceAmount">
                 {p.price}
@@ -313,7 +313,7 @@ export default function Page() {
 
       <section className="section" id="faq">
         <p className="sectionKicker">FAQ</p>
-        <h2>Pertanyaan yang sering ditanyakan.</h2>
+        <h2>Frequently asked questions.</h2>
         <div className="faqGrid">
           {faqs.map((faq) => (
             <article className="faqCard" key={faq.q}>
@@ -327,28 +327,28 @@ export default function Page() {
       <section className="demoSection" id="demo">
         <div className="section demoLayout">
           <div>
-            <p className="sectionKicker">Demo Gratis</p>
-            <h2>Coba dengan inquiry bisnis Anda.</h2>
+            <p className="sectionKicker">Free Demo</p>
+            <h2>Try it with your business inquiry.</h2>
             <p className="sectionDesc">
-              Pilih segmen bisnis, kirim contoh inquiry, dan lihat bagaimana Opsora menyiapkan draft
-              balasan serta mencatat lead ke CRM.
+              Select your business segment, send a sample inquiry, and see how Opsora prepares
+              a reply draft and logs the lead to CRM.
             </p>
             <p className="trustLine" style={{ marginTop: 24 }}>
-              Pilot 7 hari mulai Rp 300rb. Audit inquiry flow gratis.
+              7-day pilot starting at $300. Free inquiry flow audit.
             </p>
           </div>
 
           <form onSubmit={submitLead} className="leadForm">
             <label>
-              Nama
-              <input name="name" required maxLength={120} placeholder="Nama Anda" />
+              Name
+              <input name="name" required maxLength={120} placeholder="Your Name" />
             </label>
             <label>
-              Nama bisnis
-              <input name="business" required maxLength={160} placeholder="Contoh: Villa Sari Bali" />
+              Business Name
+              <input name="business" required maxLength={160} placeholder="e.g., Villa Sari Bali" />
             </label>
             <label>
-              Jenis bisnis
+              Business Type
               <select name="segment" defaultValue="">
                 {segmentOptions.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -358,17 +358,17 @@ export default function Page() {
               </select>
             </label>
             <label>
-              Nomor Telepon (opsional)
+              Phone Number (optional)
               <input name="phone" maxLength={60} inputMode="tel" placeholder="+62..." />
             </label>
             <label>
-              Kebutuhan
+              Requirement
               <textarea
                 name="need"
                 required
                 maxLength={1500}
                 rows={4}
-                placeholder="Contoh: Butuh sistem balas inquiry tamu villa dan catat booking request."
+                placeholder="Example: Need a system to reply to villa guest inquiries and log booking requests."
               />
             </label>
             <label className="spamTrap" aria-hidden="true">
@@ -376,7 +376,7 @@ export default function Page() {
               <input name="website" tabIndex={-1} autoComplete="off" />
             </label>
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Mengirim..." : "Kirim & Minta Demo"}
+              {isSubmitting ? "Sending..." : "Send & Request Demo"}
             </button>
             {status && (
               <p className="formStatus" aria-live="polite">
@@ -389,41 +389,41 @@ export default function Page() {
       </section>
 
       <section className="section" id="trust">
-        <p className="sectionKicker">Kenapa Aman</p>
-        <h2>Bukan chatbot. Ini asisten yang bisa diawasi.</h2>
+        <p className="sectionKicker">Why It's Safe</p>
+        <h2>Not a chatbot. This is an assistant that can be supervised.</h2>
         <div className="trustGrid">
           <article className="trustCard">
             <div className="trustIcon">🔒</div>
-            <h3>Data di Supabase</h3>
-            <p>Lead dan percakapan tersimpan di cloud database terenkripsi. Bukan spreadsheet yang bisa hilang.</p>
+            <h3>Data in Supabase</h>
+            <p>Leads and conversations are stored in an encrypted cloud database. Not a spreadsheet that can be lost.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">✋</div>
-            <h3>Admin Selalu Review</h3>
-            <p>Setiap draft balasan AI harus disetujui admin sebelum dikirim. Tidak ada yang auto-spam ke WhatsApp customer.</p>
+            <h3>Admin Always Reviews</h3>
+            <p>Every AI reply draft must be approved by the admin before sending. No auto-spam to WhatsApp customers.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">⚡</div>
-            <h3>Draft Siap dalam 3 Menit</h3>
-            <p>Inquiry masuk, AI langsung siapkan draft balasan + ringkasan lead. Admin tinggal review dan approve.</p>
+            <h3>Ready in 3 Minutes</h3>
+            <p>Inquiry arrives, AI prepares a reply draft + lead summary. Admin just reviews and approves.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">🎯</div>
-            <h3>12 Template Segmen</h3>
-            <p>Bukan template generik. Setiap segmen bisnis punya field intake, FAQ, dan alur handoff yang spesifik.</p>
+            <h3>12 Segment-Specific Templates</h3>
+            <p>Not a generic template. Each business segment has specific intake fields, FAQs, and handoff flows.</p>
           </article>
         </div>
         <p className="pilotNote">
-          <strong>Program pilot tersedia.</strong> 7 hari trial mulai Rp 300rb. Audit inquiry flow gratis — tanpa komitmen.
+          <strong>Pilot program available.</strong> 7-day trial starting at $300. Free inquiry flow audit — no commitment.
         </p>
       </section>
 
       <footer className="footer">
         <p>Opsora AI Receptionist · Denpasar/Bali · Human-in-the-loop · No auto-spam</p>
         <p style={{ marginTop: 8, opacity: 0.8 }}>
-          Hubungi kami: <a href="mailto:opsora.bali@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>opsora.bali@gmail.com</a>
+          Contact us: <a href="mailto:opsora.bali@gmail.com" style={{ color: "inherit", textDecoration: "underline" }}>opsora.bali@gmail.com</a>
         </p>
-        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. Sedang tahap MVP — draft only, admin review required.</p>
+        <p style={{ marginTop: 8, opacity: 0.6 }}>© 2025 Opsora. In MVP stage — draft only, admin review required.</p>
       </footer>
 
       <script

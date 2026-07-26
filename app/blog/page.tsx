@@ -29,16 +29,16 @@ export default async function BlogPage() {
   return (
     <main className="blog-page">
       <header className="blog-header">
-        <Link href="/" className="back-link">← Kembali</Link>
-        <h1>Blog Opsora</h1>
+        <Link href="/" className="back-link">← Back</Link>
+        <h1>Opsora Blog</h1>
         <p className="blog-subtitle">
-          Tips, insight, dan strategi AI automation untuk bisnis di Bali
+          Tips, insights, and AI automation strategies for businesses in Bali
         </p>
       </header>
 
       {(!posts || posts.length === 0) ? (
         <div className="empty-state">
-          <p>Artikel pertama segera hadir. Stay tuned!</p>
+          <p>First article coming soon. Stay tuned!</p>
         </div>
       ) : (
         <div className="blog-grid">
@@ -49,7 +49,7 @@ export default async function BlogPage() {
                 <p className="excerpt">{post.excerpt}</p>
                 <div className="meta">
                   <time dateTime={post.published_at}>
-                    {new Date(post.published_at).toLocaleDateString("id-ID", {
+                    {new Date(post.published_at).toLocaleDateString("en-US", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
@@ -71,7 +71,7 @@ export default async function BlogPage() {
 
       <footer className="blog-footer">
         <Link href="/" className="cta-link">
-          Coba Opsora AI Receptionist →
+          Try Opsora AI Receptionist →
         </Link>
       </footer>
 

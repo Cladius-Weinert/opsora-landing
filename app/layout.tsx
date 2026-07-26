@@ -18,17 +18,17 @@ export const metadata: Metadata = {
     template: "%s | Opsora"
   },
   description:
-    "AI receptionist untuk bisnis Bali: villa, gym, spa, klinik, rental. Lead capture, draft balasan AI, CRM, dan human handoff. Denpasar/Bali SMB.",
+    "AI receptionist for Bali businesses: villa, gym, spa, clinic, rental. Lead capture, AI reply draft, CRM, and human handoff. Denpasar/Bali SMB.",
   applicationName: "Opsora",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Opsora AI Receptionist — Bali SMB",
     description:
-      "Tangkap inquiry, draft balasan AI, simpan lead ke CRM. Khusus villa, gym, spa, klinik, rental di Bali.",
+      "Capture inquiries, draft AI replies, save leads to CRM. For villas, gyms, spas, clinics, and rentals in Bali.",
     url: "/",
     siteName: "Opsora",
     images: [{ url: "/opsora-dashboard-preview.png", width: 1536, height: 1024, alt: "Opsora dashboard" }],
-    locale: "id_ID",
+    locale: "en_US",
     type: "website"
   },
   robots: { index: true, follow: true },
@@ -36,17 +36,17 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Opsora AI Receptionist — Bali SMB",
     description:
-      "Tangkap inquiry, draft balasan AI, simpan lead ke CRM. Khusus villa, gym, spa, klinik, rental di Bali.",
+      "Capture inquiries, draft AI replies, save leads to CRM. For villas, gyms, spas, clinics, and rentals in Bali.",
     images: ["/opsora-dashboard-preview.png"]
   },
   keywords: [
     "AI receptionist Bali",
     "lead capture Bali",
-    "CRM bisnis Bali",
-    "automasi WhatsApp bisnis",
-    "AI reply villa Bali",
+    "business CRM Bali",
+    "WhatsApp automation for businesses",
+    "AI reply for villa Bali",
     "Opsora",
-    "receptionist AI Indonesia"
+    "AI receptionist Indonesia"
   ]
 };
 
@@ -58,7 +58,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="id" className={outfit.variable}>
+    <html lang="en" className={outfit.variable}>
       <body>
         {children}
         <Analytics />

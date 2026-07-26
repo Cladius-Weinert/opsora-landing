@@ -1,65 +1,68 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import HeroSceneLoader from "./components/HeroSceneLoader";
+import Hero from "./components/Hero";
 
 const segments = [
-  { icon: "🏡", name: "Vacation Rentals & Villas", pain: "Missed booking inquiries after hours cost you reservations.", tag: "Core" },
-  { icon: "💆", name: "Salons & Spas", pain: "Treatment questions flood your phone while you're busy serving clients.", tag: "Core" },
-  { icon: "🚗", name: "Car & Equipment Rental", pain: "Last-minute rental requests need instant answers, or they go to the next listing.", tag: "Core" },
-  { icon: "🦷", name: "Dental & Medical Clinics", pain: "Repetitive scheduling questions drain your admin team's time.", tag: "Growth" },
-  { icon: "✈️", name: "Travel Agencies & Tours", pain: "Custom itinerary requests slow down your response to hot leads.", tag: "Growth" },
-  { icon: "💪", name: "Gyms & Fitness Studios", pain: "Trial class leads slip through when follow-up isn't immediate.", tag: "Growth" },
-  { icon: "🍽️", name: "Restaurants & Cafes", pain: "Group bookings and event inquiries take too long to confirm.", tag: "Growth" },
-  { icon: "🏠", name: "Real Estate Agents", pain: "Property inquiries from multiple channels get mixed and forgotten.", tag: "Scale" },
-  { icon: "🧹", name: "Cleaning & Laundry Services", pain: "Same-day service requests need quick confirmation to keep trucks moving.", tag: "Scale" },
-  { icon: "📚", name: "Education & Training Centers", pain: "Prospects ask the same schedule and pricing questions repeatedly.", tag: "Scale" },
-  { icon: "🔧", name: "Repair & Maintenance", pain: "Incomplete issue details cause wasted dispatch trips.", tag: "Scale" },
-  { icon: "🎉", name: "Events & Wedding Planners", pain: "Wedding inquiry emails answered too late means lost bookings.", tag: "Scale" }
+  { icon: "🏨", name: "Villa & Hotel", pain: "Inquiry tamu lewat jam kerja = booking hilang.", tag: "Core" },
+  { icon: "💆", name: "Salon & Spa", pain: "Pertanyaan treatment banjir saat Anda sedang melayani klien.", tag: "Core" },
+  { icon: "🚗", name: "Rental Mobil & Peralatan", pain: "Request last-minute butuh jawaban instan, atau ke kompetitor.", tag: "Core" },
+  { icon: "🦷", name: "Klinik & Dokter Gigi", pain: "Pertanyaan jadwal berulang menguras waktu admin.", tag: "Growth" },
+  { icon: "✈️", name: "Travel & Tour Operator", pain: "Request itinerary custom lambat = lead panas jadi dingin.", tag: "Growth" },
+  { icon: "💪", name: "Gym & Fitness Studio", pain: "Lead trial class slip kalo follow-up tidak instan.", tag: "Growth" },
+  { icon: "🍽️", name: "Restoran & Cafe", pain: "Booking grup & event butuh konfirmasi cepat.", tag: "Growth" },
+  { icon: "🏠", name: "Real Estate Agent", pain: "Inquiry properti dari banyak channel bercampur & terlewat.", tag: "Scale" },
+  { icon: "🧺", name: "Laundry & Cleaning Service", pain: "Request same-day butuh konfirmasi cepat biar armada jalan.", tag: "Scale" },
+  { icon: "📚", name: "Pusat Kursus & Pelatihan", pain: "Prospek tanya jadwal & harga yang sama berulang.", tag: "Scale" },
+  { icon: "🔧", name: "Jasa Reparasi & Maintenance", pain: "Detail keluhan tidak lengkap =派车 sia-sia.", tag: "Scale" },
+  { icon: "🎉", name: "Event & Wedding Planner", pain: "Email inquiry wedding dijawab terlambat = booking hilang.", tag: "Scale" }
 ];
 
 const workflow = [
-  "Inquiry arrives on your website, WhatsApp, or social media",
-  "AI generates a contextual reply draft in under 3 minutes",
-  "Lead is captured in your CRM with full conversation history",
-  "Your team reviews, approves, and sends — zero auto-spam"
+  "Inquiry masuk via website, WhatsApp, atau sosmed",
+  "AI generate draft balasan kontekstual < 3 menit",
+  "Lead masuk CRM dengan riwayat percakapan lengkap",
+  "Tim review, approve, kirim — zero auto-spam"
 ];
 
 const stats = [
-  { value: "<3", label: "Minute response time", detail: "From inquiry to draft ready for review" },
-  { value: "0%", label: "Auto-send rate", detail: "Every message passes through human approval" },
-  { value: "12+", label: "Industry segments", detail: "Tailored templates built-in from day one" },
-  { value: "∞", label: "Scale potential", detail: "Handle 1 or 1,000 conversations without hiring" }
+  { value: "<3", label: "Menit waktu balas", detail: "Dari inquiry sampai draft siap review" },
+  { value: "0%", label: "Auto-send rate", detail: "Setiap pesan lewat approval manusia" },
+  { value: "12+", label: "Segmen industri", detail: "Template siap pakai dari hari pertama" },
+  { value: "∞", label: "Potensi skala", detail: "Handle 1 atau 1.000 percakapan tanpa hiring" }
 ];
 
 const pricing = [
   {
     plan: "Starter",
-    price: "$49",
-    period: "/month",
-    note: "One business, lead capture and AI response automation.",
+    price: "Rp 750.000",
+    period: "/bulan",
+    note: "Satu bisnis, AI reply drafts + CRM dashboard. Setup 3 hari.",
     items: [
-      "1 business account",
-      "AI reply drafts (unlimited leads)",
-      "CRM dashboard with conversation history",
-      "Email notifications",
-      "Manual approval workflow"
+      "1 akun bisnis",
+      "AI reply drafts (unlimited)",
+      "CRM dashboard + riwayat percakapan",
+      "Notifikasi email real-time",
+      "Workflow approval manual",
+      "Integrasi WhatsApp Business API",
+      "Setup & onboarding 3 hari kerja",
     ],
     featured: false
   },
   {
     plan: "Growth",
-    price: "$99",
-    period: "/month",
-    note: "Multi-location teams that need advanced features and integrations.",
+    price: "Rp 1.500.000",
+    period: "/bulan",
+    note: "Multi-cabang, lead scoring, follow-up otomatis, analytics.",
     items: [
-      "Up to 5 business accounts",
-      "Everything in Starter",
-      "WhatsApp integration via WATI",
+      "Hingga 5 akun bisnis",
+      "Semua fitur Starter",
+      "WhatsApp Business API (Official Partner)",
       "Lead scoring & priority routing",
-      "Follow-up sequences",
-      "Analytics & reporting",
-      "API access"
+      "Follow-up sequence otomatis",
+      "Analytics & reporting bulanan",
+      "API access untuk integrasi custom",
+      "Dedicated Slack support",
     ],
     featured: true
   },
@@ -67,57 +70,58 @@ const pricing = [
     plan: "Enterprise",
     price: "",
     period: "Custom",
-    note: "Unlimited scale with dedicated support and custom integrations.",
+    note: "Skala tak terbatas, SLA, integrasi booking & pembayaran.",
     items: [
-      "Unlimited business accounts",
-      "Everything in Growth",
-      "Booking system integration",
-      "Payment gateway (Stripe, Midtrans)",
+      "Akun bisnis unlimited",
+      "Semua fitur Growth",
+      "Integrasi sistem booking (Cal.com, Google Calendar)",
+      "Payment gateway (Midtrans, Xendit, Stripe)",
       "Dedicated account manager",
       "Custom SLA & uptime guarantee",
-      "Onboarding & training included"
+      "Onboarding & training tim lengkap",
+      "White-label option",
     ],
     featured: false
   }
 ];
 
 const segmentOptions = [
-  { value: "", label: "Select business type (optional)" },
+  { value: "", label: "Pilih jenis bisnis (opsional)" },
   { value: "villa", label: "Villa / Hotel" },
   { value: "salon", label: "Salon / Spa" },
   { value: "rental", label: "Rental / Transport" },
-  { value: "clinic", label: "Clinic / Dentist" },
-  { value: "travel", label: "Travel / Tours" },
+  { value: "clinic", label: "Klinik / Dokter Gigi" },
+  { value: "travel", label: "Travel / Tour" },
   { value: "gym", label: "Gym / Fitness" },
-  { value: "restaurant", label: "Restaurant / Cafe" },
+  { value: "restaurant", label: "Restoran / Cafe" },
   { value: "property", label: "Real Estate" },
   { value: "laundry", label: "Laundry / Cleaning" },
-  { value: "course", label: "Education / Training" },
-  { value: "repair", label: "Repair Services" },
+  { value: "course", label: "Kursus / Pelatihan" },
+  { value: "repair", label: "Jasa Reparasi" },
   { value: "event", label: "Event / Wedding" },
-  { value: "other", label: "Other" }
+  { value: "other", label: "Lainnya" }
 ];
 
 const faqs = [
   {
-    q: "Does Opsora replace my customer service team?",
-    a: "No. Opsora handles the first response — generating a quality draft your team reviews and approves. Think of it as giving every team member an extra set of hands for the repetitive inquiries."
+    q: "Apakah Opsora menggantikan tim customer service saya?",
+    a: "Tidak. Opsora menangani first response — generate draft berkualitas yang tim Anda review & approve. Anggap saja setiap anggota tim dapat 'extra hands' untuk inquiry berulang."
   },
   {
-    q: "Will it auto-send messages to my customers?",
-    a: "Not without your approval. Every message goes through human review before anything is sent. You have full control over timing, tone, and content."
+    q: "Apakah pesan akan terkirim otomatis ke customer?",
+    a: "Tidak tanpa approval Anda. Setiap pesan lewat review manusia sebelum dikirim. Anda kontrol penuh timing, tone, dan isi."
   },
   {
-    q: "What industries does this work for?",
-    a: "We start with service businesses that handle inbound inquiries: vacation rentals, salons, clinics, restaurants, real estate, repair services, and more. The AI adapts to your specific business based on your segment selection."
+    q: "Bisa untuk industri apa saja?",
+    a: "Kami mulai dengan bisnis layanan yang handle inbound inquiry: villa, salon, klinik, restoran, properti, repair service, dll. AI adapt ke bisnis spesifik Anda berdasarkan segment yang dipilih."
   },
   {
-    q: "How much does it cost to get started?",
-    a: "We offer a free consultation where we'll map out exactly what you need. Our Starter plan starts at $49/month for single-business use. We also offer managed setup services if you want us to configure everything for you."
+    q: "Berapa biaya mulai pakai Opsora?",
+    a: "Kami tawarkan konsultasi gratis 30 menit untuk mapping kebutuhan. Starter Rp 750.000/bulan untuk 1 bisnis. Ada juga managed setup kalau mau kami yang configure end-to-end."
   },
   {
-    q: "Can I cancel anytime?",
-    a: "Yes. There are no long-term contracts. If you cancel, your data is retained for 30 days so you can export it before your account closes."
+    q: "Bisa cancel kapan saja?",
+    a: "Bisa. Tidak ada kontrak long-term. Kalau cancel, data disimpan 30 hari untuk export sebelum akun ditutup."
   }
 ];
 
@@ -192,41 +196,6 @@ export default function Page() {
       </nav>
 
       <section className="hero">
-        <HeroSceneLoader />
-        <div className="heroContent">
-          <p className="eyebrow">AI Receptionist · Built for Service Businesses</p>
-          <h1>
-            <span className="gradient">Your customers shouldn't have to wait.</span>
-            <br />
-            Your team shouldn't be drowning either.
-          </h1>
-          <p className="heroCopy">
-            Opsora captures every inquiry — from your website, WhatsApp, or social media — 
-            generates a contextual reply draft in under 3 minutes, and saves it to your CRM. 
-            Your team reviews, approves, and sends. No auto-spam. No missed leads.
-          </p>
-          <div className="heroActions">
-            <a href="#demo" className="btnPrimary">
-              Request a Live Demo →
-            </a>
-            <a href="#pricing" className="btnSecondary">
-              View Pricing
-            </a>
-          </div>
-          <p className="trustLine">
-            No auto-send. Admin reviews every reply before sending.
-          </p>
-        </div>
-        <div className="heroVisual" />
-      </section>
-
-      <section className="section" id="segments">
-        <p className="sectionKicker">Who It's For</p>
-        <h2>Built for service businesses that thrive on fast response.</h2>
-        <p className="sectionDesc">
-          Each industry segment has tailored FAQ fields, intake flows, and context-aware AI responses built in from day one.
-        </p>
-        <div className="segmentGrid">
           {segments.map((s) => (
             <article className="segmentCard" key={s.name}>
               <div className="segmentIcon">{s.icon}</div>
@@ -341,27 +310,27 @@ export default function Page() {
         <div className="section demoLayout">
           <div>
             <p className="sectionKicker">Live Demo</p>
-            <h2>See it in action with your own inquiry.</h2>
+            <h2>Coba langsung dengan inquiry Anda sendiri.</h2>
             <p className="sectionDesc">
-              Select your business segment, share a sample customer question, 
-              and watch Opsora generate a contextual reply draft and capture the lead — in real time.
+              Pilih jenis bisnis, tulis contoh pertanyaan pelanggan, 
+              dan lihat Opsora generate draft balasan kontekstual & capture lead — real time.
             </p>
             <p className="trustLine" style={{ marginTop: 24 }}>
-              Free consultation included. No credit card required to get started.
+              Konsultasi gratis 30 menit. Tanpa kartu kredit untuk memulai.
             </p>
           </div>
 
           <form onSubmit={submitLead} className="leadForm">
             <label>
-              Name
-              <input name="name" required maxLength={120} placeholder="Your Name" />
+              Nama
+              <input name="name" required maxLength={120} placeholder="Nama Anda" />
             </label>
             <label>
-              Business Name
-              <input name="business" required maxLength={160} placeholder="e.g., Villa Sari Bali" />
+              Nama Bisnis
+              <input name="business" required maxLength={160} placeholder="Contoh: Villa Sari Bali" />
             </label>
             <label>
-              Business Type
+              Jenis Bisnis
               <select name="segment" defaultValue="">
                 {segmentOptions.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -371,17 +340,17 @@ export default function Page() {
               </select>
             </label>
             <label>
-              Phone Number (optional)
+              Nomor Telepon (opsional)
               <input name="phone" maxLength={60} inputMode="tel" placeholder="+62..." />
             </label>
             <label>
-              Requirement
+              Kebutuhan
               <textarea
                 name="need"
                 required
                 maxLength={1500}
                 rows={4}
-                placeholder="Example: Need a system to reply to villa guest inquiries and log booking requests."
+                placeholder="Contoh: Butuh sistem balas inquiry tamu villa & pencatatan request booking."
               />
             </label>
             <label className="spamTrap" aria-hidden="true">
@@ -389,7 +358,7 @@ export default function Page() {
               <input name="website" tabIndex={-1} autoComplete="off" />
             </label>
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Sending..." : "Send & Request Demo"}
+              {isSubmitting ? "Mengirim..." : "Kirim & Minta Demo"}
             </button>
             {status && (
               <p className="formStatus" aria-live="polite">
@@ -402,38 +371,38 @@ export default function Page() {
       </section>
 
       <section className="section" id="trust">
-        <p className="sectionKicker">Why Teams Choose Opsora</p>
-        <h2>Built for businesses that care about quality.</h2>
+        <p className="sectionKicker">Mengapa Tim Memilih Opsora</p>
+        <h2>Dibangun untuk bisnis yang peduli kualitas.</h2>
         <div className="trustGrid">
           <article className="trustCard">
             <div className="trustIcon">🔒</div>
-            <h3>Enterprise Infrastructure</h3>
-            <p>Hosted on Supabase with encrypted cloud storage. Your lead data never touches a shared spreadsheet or third-party CRM.</p>
-          </article>
-          <article className="trustCard">
-            <div className="trustIcon">✋</div>
-            <h3>Human Approval Every Time</h3>
-            <p>Zero auto-send by default. Every AI draft is reviewed and approved by your team before reaching any customer.</p>
+            <h3>Infrastruktur Enterprise</h3>
+            <p>Hosted di Supabase dengan encrypted cloud storage. Data lead Anda tidak pernah sentuh spreadsheet bersama atau CRM pihak ketiga.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">⚡</div>
-            <h3>Drafts in Under 3 Minutes</h3>
-            <p>Inquiry arrives, multi-model AI generates a contextual reply draft. Ready for review while competitors are still reading the email.</p>
+            <h3>AI Auto-Reply 24/7</h3>
+            <p>WhatsApp & web chatbot balas instan setiap jam. Booking, FAQ, arah lokasi, review Google Maps — otomatis tanpa missed lead.</p>
+          </article>
+          <article className="trustCard">
+            <div className="trustIcon">⚡</div>
+            <h3>AI Balas < 3 Menit</h3>
+            <p>Inquiry masuk, multi-model AI generate jawaban kontekstual. Tamu dapet jawaban saat kompetitor masih baca email.</p>
           </article>
           <article className="trustCard">
             <div className="trustIcon">🎯</div>
-            <h3>Industry-Specific Intelligence</h3>
-            <p>Tailored prompt engineering per segment. Not generic templates — your AI understands villas differently than clinics.</p>
+            <h3>Inteligensi Spesifik Industri</h3>
+            <p>Prompt engineering per segment. Bukan template generik — AI paham villa beda dengan klinik.</p>
           </article>
         </div>
       </section>
 
       <footer className="footer">
-        <p>Opsora · AI Receptionist for Service Businesses</p>
+        <p>Opsora · AI Receptionist untuk Bisnis Layanan</p>
         <p style={{ marginTop: 8, opacity: 0.8 }}>
-          Contact us: <a href="mailto:hello@useopsora.com" style={{ color: "inherit", textDecoration: "underline" }}>hello@useopsora.com</a>
+          Hubungi kami: <a href="mailto:hello@useopsora.com" style={{ color: "inherit", textDecoration: "underline" }}>hello@useopsora.com</a>
         </p>
-        <p style={{ marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Opsora. All rights reserved.</p>
+        <p style={{ marginTop: 8, opacity: 0.6 }}>© {new Date().getFullYear()} Opsora. Hak cipta dilindungi.</p>
       </footer>
 
       <script
@@ -446,12 +415,12 @@ export default function Page() {
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
             description:
-              "AI receptionist that captures inquiries, generates reply drafts, and manages lead follow-ups for service businesses. Human-in-the-loop approval workflow.",
+              "AI receptionist yang menangkap inquiry, membalas otomatis 24/7 via WhatsApp & web, dan mengelola follow-up lead untuk bisnis layanan. Auto-reply instan tanpa missed leads.",
             offers: {
               "@type": "Offer",
-              price: "49",
-              priceCurrency: "USD",
-              description: "Starter plan — 1 business account, AI reply drafts, CRM dashboard"
+              price: "750000",
+              priceCurrency: "IDR",
+              description: "Starter plan — 1 akun bisnis, AI auto-reply WhatsApp & web, CRM dashboard"
             },
             provider: {
               "@type": "Organization",

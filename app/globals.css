@@ -424,6 +424,26 @@ img, svg {
   line-height: 1.5;
 }
 
+.heroTrustBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  color: var(--brand-700);
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .heroVisual {
   display: none;
 }
@@ -439,15 +459,174 @@ img, svg {
   display: none;
 }
 
+/* ---------- WhatsApp Mock ---------- */
+.wa-mock {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  max-width: 380px;
+  margin: 24px auto 0;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wa-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-600) 100%);
+  color: #fff;
+}
+
+.wa-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.wa-info {
+  flex: 1;
+}
+
+.wa-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.wa-status {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.wa-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.wa-messages {
+  padding: 20px;
+  background: #f0f2f5;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.msg {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  align-items: flex-end;
+}
+
+.msg.in {
+  flex-direction: row-reverse;
+}
+
+.msg.in .msg-bubble {
+  background: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.msg.out .msg-bubble {
+  background: var(--mint);
+  border-bottom-left-radius: 4px;
+}
+
+.msg.out.auto .msg-bubble {
+  background: #fffbe6;
+  border: 1px dashed var(--gold);
+}
+
+.msg-bubble {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: var(--shadow-sm);
+}
+
+.msg-time {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 4px;
+  opacity: 0.7;
+}
+
+.msg.in .msg-time {
+  text-align: right;
+}
+
+.auto-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  background: var(--gold);
+  color: #1a1a00;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+.wa-composer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.composer-hint {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- Cal.com Embed ---------- */
+.cal-embed {
+  margin-top: 24px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.cal-iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  background: var(--surface);
+}
+
+@media (max-width: 640px) {
+  .cal-iframe {
+    height: 600px;
+  }
+}
+
 /* ---------- Sections ---------- */
 .section {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 80px clamp(16px, 4vw, 40px);
+  padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 40px);
 }
 
 .section h2 {
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  font-size: clamp(28px, 4vw, 40px);
   margin-bottom: 16px;
   color: var(--text);
 }
@@ -455,10 +634,10 @@ img, svg {
 .sectionKicker {
   display: inline-block;
   margin-bottom: 10px;
-  color: var(--brand-600);
+  color: var(--brand);
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -467,7 +646,7 @@ img, svg {
   font-size: 1.05rem;
   line-height: 1.7;
   max-width: 600px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 /* ---------- Band (dark section) ---------- */
@@ -487,7 +666,7 @@ img, svg {
 /* ---------- Segment Grid ---------- */
 .segmentGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -597,10 +776,10 @@ img, svg {
   color: var(--muted);
 }
 
-/* ---------- Pricing ---------- */
+/* ---------- Pricing (IDR) ---------- */
 .pricingGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
   align-items: start;
 }
@@ -643,11 +822,11 @@ img, svg {
 }
 
 .priceAmount {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .pricePeriod {
@@ -656,14 +835,85 @@ img, svg {
   color: var(--muted);
 }
 
+.priceNote {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 8px 0 20px;
+  line-height: 1.5;
+}
+
 .priceCard ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin: 20px 0;
 }
 
 .priceCard li {
-  padding: 6px 0;
-  font-size: 0.9rem;
-  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.priceCard li::before {
+  content: "✓";
+  color: var(--brand);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Responsive Section Grid Layouts */
+.section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 40px);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.segmentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.workflowGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.demoLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .demoLayout {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* ---------- FAQ ---------- */

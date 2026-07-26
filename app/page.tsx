@@ -196,6 +196,7 @@ export default function Page() {
       </nav>
 
       <section className="hero">
+        <div className="segmentGrid">
           {segments.map((s) => (
             <article className="segmentCard" key={s.name}>
               <div className="segmentIcon">{s.icon}</div>
@@ -386,7 +387,7 @@ export default function Page() {
           </article>
           <article className="trustCard">
             <div className="trustIcon">⚡</div>
-            <h3>AI Balas < 3 Menit</h3>
+            <h3>AI Balas &lt; 3 Menit</h3>
             <p>Inquiry masuk, multi-model AI generate jawaban kontekstual. Tamu dapet jawaban saat kompetitor masih baca email.</p>
           </article>
           <article className="trustCard">

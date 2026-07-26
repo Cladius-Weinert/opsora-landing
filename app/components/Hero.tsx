@@ -16,7 +16,7 @@ export default function Hero() {
     <section className="hero" aria-labelledby="hero-heading">
       <div className="heroGrid">
         <div className="heroContent">
-          <p className="eyebrow">AI Receptionist \u00b7 We Run It. You Get Bookings.</p>
+          <p className="eyebrow">AI Receptionist · We Run It. You Get Bookings.</p>
           <h1 id="hero-heading">
             <span className="gradient">WhatsApp-first AI receptionist for Bali businesses.</span>
             <br />
@@ -24,21 +24,21 @@ export default function Hero() {
           </h1>
           <p className="heroCopy">
             Kami setup chatbot WhatsApp + web untuk villa, klinik, salon, restoran Anda dalam 3 hari.
-            Semua pertanyaan tamu dijawab otomatis \u2014 booking, FAQ, arah lokasi, review Google Maps.
+            Semua pertanyaan tamu dijawab otomatis — booking, FAQ, arah lokasi, review Google Maps.
             AI balas instan 24/7. Zero missed leads.
           </p>
           <div className="heroActions">
             <a href="#demo" className="btnPrimary">
-              Booking Demo 30 Menit (Gratis) \u2192
+              Booking Demo 30 Menit (Gratis) →
             </a>
             <a href="#pricing" className="btnSecondary">
               Lihat Harga Mulai Rp 750K/bulan
             </a>
           </div>
           <div className="heroTrustBadges">
-            <span className="badge">\u2713 50+ bisnis Bali percaya</span>
-            <span className="badge">\u2713 WhatsApp Business API Official Partner</span>
-            <span className="badge">\u2713 Uptime 99.9% \u00b7 Setup 3 hari</span>
+            <span className="badge">✓ 50+ bisnis Bali percaya</span>
+            <span className="badge">✓ WhatsApp Business API Official Partner</span>
+            <span className="badge">✓ Uptime 99.9% · Setup 3 hari</span>
           </div>
         </div>
 
@@ -53,10 +53,10 @@ export default function Hero() {
           {/* WhatsApp Conversation Mock */}
           <div className="wa-mock" aria-label="Contoh percakapan WhatsApp Opsora">
             <div className="wa-header">
-              <div className="wa-avatar">\u{1F3E8}</div>
+              <div className="wa-avatar">🏨</div>
               <div className="wa-info">
                 <div className="wa-name">Villa Sari Bali</div>
-                <div className="wa-status">Online \u00b7 AI Receptionist aktif</div>
+                <div className="wa-status">Online · AI Receptionist aktif</div>
               </div>
               <div className="wa-badge">Verified Business</div>
             </div>
@@ -69,7 +69,7 @@ export default function Hero() {
               </div>
               <div className="msg out auto">
                 <div className="msg-bubble">
-                  Halo! \u{1F44B} Villa Sari Bali siap melayani.
+                  Halo! 👋 Villa Sari Bali siap melayani.
                   <br/><br/>
                   Villa 2 kamar (mampu 4 orang) tersedia untuk 15-18 Agustus.
                   Rate: Rp 2.800.000/malam include sarapan & airport transfer.
@@ -77,7 +77,7 @@ export default function Hero() {
                   Mau saya bantu booking sekaligus kirim detail pembayaran via WhatsApp?
                 </div>
                 <div className="msg-time">09:12</div>
-                <span className="auto-badge">\u26A1 AI Auto-Reply</span>
+                <span className="auto-badge">⚡ AI Auto-Reply</span>
               </div>
               <div className="msg in">
                 <div className="msg-bubble">
@@ -89,10 +89,10 @@ export default function Hero() {
                 <div className="msg-bubble">
                   Terima kasih! Detail pembayaran sudah dikirim ke WhatsApp ini.
                   Booking dikunci setelah transfer konfirmasi.
-                  See you soon di Bali! \u{1F334}
+                  See you soon di Bali! 🌴
                 </div>
                 <div className="msg-time">09:13</div>
-                <span className="auto-badge">\u26A1 AI Auto-Reply</span>
+                <span className="auto-badge">⚡ AI Auto-Reply</span>
               </div>
             </div>
             <div className="wa-composer">

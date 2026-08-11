@@ -16,7 +16,6 @@ import {
   ChevronRight,
   Github,
   Twitter,
-  Discord,
   Mail,
   ExternalLink,
   Loader2,
@@ -27,11 +26,13 @@ import {
   TrendingUp,
   Layers,
   Cpu,
+  Cloud,
   Network,
   Lock,
   Rocket,
   Star,
   Heart,
+  MessageCircleMore,
 } from 'lucide-react';
 
 const LiveDemo = dynamic(() => import('./LiveDemo'), { ssr: false, loading: () => <div className="glass-panel rounded-2xl p-8 text-center text-muted-foreground">Loading live demo...</div> });
@@ -105,7 +106,7 @@ function Navbar() {
               <Twitter className="w-5 h-5" />
             </Link>
             <Link href="https://discord.gg/opsora" target="_blank" rel="noopener noreferrer" className="btn-ghost" aria-label="Discord">
-              <Discord className="w-5 h-5" />
+              <MessageCircleMore className="w-5 h-5" />
             </Link>
             <Link href="/dashboard" className="btn-secondary">
               <Key className="w-4 h-4 mr-2" />
@@ -622,7 +623,7 @@ function Footer() {
                 <Twitter className="w-6 h-6" />
               </Link>
               <Link href="https://discord.gg/opsora" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-emerald-500 transition-colors" aria-label="Discord">
-                <Discord className="w-6 h-6" />
+                <MessageCircleMore className="w-6 h-6" />
               </Link>
               <Link href="mailto:hello@opsora.ai" className="text-muted-foreground hover:text-emerald-500 transition-colors" aria-label="Email">
                 <Mail className="w-6 h-6" />

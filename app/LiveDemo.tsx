@@ -54,7 +54,9 @@ export default function LiveDemo() {
 
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('opsora_token') : null;
-      const response = await fetch('https://opsora-gateway-opsora-dev.apps.rm1.0a51.p1.openshiftapps.com/v1/chat/completions', {
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_URL || 'https://opsora-gateway.opsora-ai.workers.dev';
+      const response = await fetch(`${apiBase}/v1/chat/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -138,7 +140,9 @@ export default function LiveDemo() {
               <div className="w-3 h-3 rounded-full bg-amber-500" />
               <div className="w-3 h-3 rounded-full bg-green-500" />
             </div>
-            <span className="font-mono text-sm text-muted-foreground">opsora-gateway-opsora-dev.apps.rm1.0a51.p1.openshiftapps.com</span>
+            <span className="font-mono text-sm text-muted-foreground">
+              {(process.env.NEXT_PUBLIC_API_URL || 'https://opsora-gateway.opsora-ai.workers.dev').replace(/^https?:\/\//, '')}
+            </span>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <select

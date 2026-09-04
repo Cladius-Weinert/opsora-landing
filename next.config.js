@@ -16,7 +16,7 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_API_URL:
-      process.env.NEXT_PUBLIC_API_URL || 'https://opsora-gateway.opsora-ai.workers.dev',
+      process.env.NEXT_PUBLIC_API_URL || 'https://mwbgkkthwwlcndccnbnf.supabase.co/functions/v1/opsora-api',
   },
   async headers() {
     // headers() is ignored when output: 'export' — harmless for GH Pages
